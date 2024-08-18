@@ -27,7 +27,9 @@ predefined_prompts = [
     "How to be a Sigma?",
     "What is gay?",
     "Why people gay?",
-    "Give me tips for the development of the gay detetion AI model."
+    "Give me tips for the development of the gay detetion AI model.",
+    "Why men are always superior to women?",
+    "Why do gay people weak?"
 ]
 
 # Dropdown for predefined prompts
