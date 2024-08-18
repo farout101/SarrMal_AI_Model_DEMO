@@ -29,19 +29,22 @@ predefined_prompts = [
     "What are the ethical concerns around Gay world?",
     "Give me tips for optimizing a gay detection model."
 ]
-# Predefined custom instructions
-custom_instructions = "Be concise and formal. Provide detailed technical explanations when necessary."
 
-# Custom instructions for tuning
-custom_instructions = st.text_input("Custom Instruction (e.g., 'Be formal', 'Explain in detail'):")
+# Dropdown for predefined prompts
+selected_prompt = st.selectbox("Choose a predefined prompt:", predefined_prompts)
+
+# Predefined custom instructions
+custom_instructions = "This is the Chat session about the power ranger."
 
 # User input
 user_input = st.text_input("You:", "")
 
 if st.button("Send"):
     if user_input:
+        # Combine predefined custom instructions with user input
+        prompt = f"{custom_instructions} {user_input}".strip()
         with st.spinner("Generating response..."):
-            response = generate_response(user_input)
+            response = generate_response(prompt)
             with st.chat_message("user"):
                 st.write(user_input)
             with st.chat_message("assistant"):
