@@ -24,10 +24,10 @@ st.write("Ask me anything!")
 
 # Predefined prompts
 predefined_prompts = [
-    "How to enlarge the penis?",
-    "Can you explain the concept of Gay?",
-    "What are the ethical concerns around Gay world?",
-    "Give me tips for optimizing a gay detection model."
+    "How to be a Sigma?",
+    "What is gay?",
+    "Why people gay?",
+    "Give me tips for the development of the gay detetion AI model."
 ]
 
 # Dropdown for predefined prompts
@@ -36,18 +36,28 @@ selected_prompt = st.selectbox("Choose a predefined prompt:", predefined_prompts
 # Predefined custom instructions
 custom_instructions = "This is the Chat session about the power ranger."
 
+if st.button("Ask"):
+    with st.spinner("Generating response..."):
+        response = generate_response(selected_prompt)
+        with st.chat_message("user"):
+            st.write(selected_prompt)
+        with st.chat_message("assistant"):
+            st.write(response)
+
 # User input
 user_input = st.text_input("You:", "")
 
-if st.button("Send"):
-    if user_input:
-        # Combine predefined custom instructions with user input
-        prompt = f"{custom_instructions} {user_input}".strip()
+col1, col2 = st.columns([9,1])
+
+with col1:
+    if st.button("Send"):
         with st.spinner("Generating response..."):
-            response = generate_response(prompt)
+            response = generate_response(user_input)
             with st.chat_message("user"):
                 st.write(user_input)
             with st.chat_message("assistant"):
                 st.write(response)
-    else:
-        st.write("Please enter a message.")
+                
+with col2:
+    if st.button("Clear"):
+        st.empty()
