@@ -22,6 +22,19 @@ def generate_response(prompt):
 st.title("Mini Chatbot with Gemini AI")
 st.write("Ask me anything!")
 
+# Predefined prompts
+predefined_prompts = [
+    "How to enlarge the penis?",
+    "Can you explain the concept of Gay?",
+    "What are the ethical concerns around Gay world?",
+    "Give me tips for optimizing a gay detection model."
+]
+# Predefined custom instructions
+custom_instructions = "Be concise and formal. Provide detailed technical explanations when necessary."
+
+# Custom instructions for tuning
+custom_instructions = st.text_input("Custom Instruction (e.g., 'Be formal', 'Explain in detail'):")
+
 # User input
 user_input = st.text_input("You:", "")
 
