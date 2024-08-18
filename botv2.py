@@ -17,8 +17,23 @@ def generate_response(prompt):
         # Access text using the correct attribute
         generated_text = gemini_response.candidates[0].content.parts[0].text  
         return generated_text
+    except genai.exceptions.APIError as api_err:
+        # Specific handling for API errors
+        st.error("Oops! There was a problem connecting to the AI service. Please try again later.")
+        # Log the error if needed for debugging (not shown to the user)
+        st.write(api_err)
+        return None
+    except ValueError as val_err:
+        # Handle issues related to invalid values, etc.
+        st.error("It seems there was an issue with the input provided. Please check and try again.")
+        st.write(val_err)
+        return None
     except Exception as e:
-        return f"An error occurred: {e}"
+        # Generic error handling
+        st.error("Something went wrong. Please try again.")
+        st.write(e)
+        return None
+
 
 # Function to display chat messages
 def display_chat_message(role, message):
