@@ -6,6 +6,7 @@ $ pip install google-generativeai
 
 import env
 import google.generativeai as genai
+from google.ai.generativelanguage_v1beta.types import content
 
 genai.configure(api_key=env.GEMINI_AI_API_KEY)
 
@@ -15,7 +16,36 @@ generation_config = {
   "top_p": 0.95,
   "top_k": 64,
   "max_output_tokens": 8192,
-  "response_mime_type": "text/plain",
+  "response_schema": content.Schema(
+  type = content.Type.OBJECT,
+  properties = {
+    "Breakfast": content.Schema(
+      type = content.Type.OBJECT,
+      properties = {
+        "": content.Schema(
+          type = content.Type.STRING,
+        ),
+      },
+    ),
+    "Lunch": content.Schema(
+      type = content.Type.OBJECT,
+      properties = {
+        "": content.Schema(
+          type = content.Type.STRING,
+        ),
+      },
+    ),
+    "Dinner": content.Schema(
+      type = content.Type.OBJECT,
+      properties = {
+        "": content.Schema(
+          type = content.Type.STRING,
+        ),
+      },
+    ),
+  },
+),
+"response_mime_type": "application/json",
 }
 
 model = genai.GenerativeModel(
