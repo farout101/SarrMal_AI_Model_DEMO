@@ -2,3 +2,4 @@ chatbot/
 __pycache__/
 env.py
 saves
+.venv
