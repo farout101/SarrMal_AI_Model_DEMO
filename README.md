@@ -18,8 +18,8 @@ Follow these steps to set up the project on your local machine.
 1. **Clone the Repository**:
 
     ```sh
-    git clone https://github.com/farout101/Streamlit_ChatBot.git
-    cd Streamlit_ChatBot
+    git clone https://github.com/farout101/ChatBot_with_Streamlit.git
+    cd ChatBot_with_Streamlit
     ```
 
 2. **Create a Virtual Environment** (optional but recommended):
@@ -38,6 +38,7 @@ Follow these steps to set up the project on your local machine.
 ## Configuration
 
 Before running the chatbot, you need to configure your API keys. The chatbot can use either OpenAI's API or Google's Gemini AI, depending on your preference.
+- Caution: the OpenAI API key is not included in the repository for security reasons.
 
 ### Code Structure
 
@@ -47,20 +48,22 @@ Chatbot_With_Streamlit/
 ├── .gitignore
 ├── botv1.py
 ├── botv2.py
-├── env.py
+├── env.py # not included in the repository (This file will contain the required API keys)
 ├── FoodSuggestion.py
 ├── model_test.py
 ├── notes.ipynb
 ├── README.md
 ├── requirements.txt
 │
-├── saves/
+├── saves/ # not included in the repository 
 │ ├── client_secret_1.json
 │ ├── client_secret_2.json
 │ ├── client_secret_web.json
 │ └── GoogleAuthentication.txt
 │
 └── pycache/
+
+# (saves) folder will contain the secret clients from Google OAuth for the FoodSuggestion models.
 ```
 
 ### Option 1: OpenAI API Key
@@ -99,16 +102,17 @@ Chatbot_With_Streamlit/
     export GEMINI_AI_API_KEY='your-gemini-api-key'
     ```
 
-### Choosing Between OpenAI and Gemini AI
+### FoodSuggestion models
 
-In the `bot.py` file, you can configure which API to use by setting the corresponding API key and adjusting the code to call the appropriate AI service. Ensure that you only set up the API key for the service you intend to use.
+The food suggestion models need to setup the google OAuth to run it on your local machine.
+The required informations are in the `notes.ipynb` file.
 
 ## Running the Chatbot
 
 1. **Start the Streamlit Application**:
 
     ```sh
-    streamlit run bot.py
+    streamlit run <app_name>.py
     ```
 
     This will start a local server and open the Streamlit app in your default web browser.
