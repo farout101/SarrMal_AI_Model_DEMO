@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import os
 import json
-import env
+import Apps.env as env
 
 UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
 
