@@ -1,66 +1,14 @@
-"""
-Install the Google AI Python SDK
-
-$ pip install google-generativeai
-"""
-
-import env
+# Importing the generativeai module from the google package.
 import google.generativeai as genai
-from google.ai.generativelanguage_v1beta.types import content
 
-genai.configure(api_key=env.GEMINI_AI_API_KEY)
+# Configuring the generativeai module to use gRPC (Google Remote Procedure Call) as the transport protocol.
+genai.configure(transport='grpc')
 
-# Create the model
-generation_config = {
-  "temperature": 1,
-  "top_p": 0.95,
-  "top_k": 64,
-  "max_output_tokens": 8192,
-  "response_schema": content.Schema(
-  type = content.Type.OBJECT,
-  properties = {
-    "Breakfast": content.Schema(
-      type = content.Type.OBJECT,
-      properties = {
-        "": content.Schema(
-          type = content.Type.STRING,
-        ),
-      },
-    ),
-    "Lunch": content.Schema(
-      type = content.Type.OBJECT,
-      properties = {
-        "": content.Schema(
-          type = content.Type.STRING,
-        ),
-      },
-    ),
-    "Dinner": content.Schema(
-      type = content.Type.OBJECT,
-      properties = {
-        "": content.Schema(
-          type = content.Type.STRING,
-        ),
-      },
-    ),
-  },
-),
-"response_mime_type": "application/json",
-}
+# Loading the fine-tuned model using the specified model name.
+model = genai.GenerativeModel(model_name=f'tunedModels/food-suggestion-ai-v1-uss801z982xp')
 
-model = genai.GenerativeModel(
-  model_name="tunedModels/food-suggestion-7n5tbcihkpat",
-  generation_config=generation_config,
-  # safety_settings = Adjust safety settings
-  # See https://ai.google.dev/gemini-api/docs/safety-settings
-)
-
-chat_session = model.start_chat(
-  history=[
-  ]
-)
-
-response = chat_session.send_message("""{
+# Providing a prompt for the model to generate content based on.
+prompt = """{
     "weight": 70,
     "height": 175,
     "age": 25,
@@ -68,6 +16,10 @@ response = chat_session.send_message("""{
     "allergies": ["Peanuts"],
     "gender": "Male",
     "exercise": "Moderate"
-  }""")
+  }"""
 
-print(response.text)
+# Generating content using the loaded model and the provided prompt.
+result = model.generate_content(prompt)
+
+# Printing the generated content.
+print(result.text)
