@@ -1,8 +1,9 @@
 import streamlit as st
 import requests
+import env
 
 # Unsplash API details
-UNSPLASH_ACCESS_KEY = "cu3LKjL5__dbJt-cOgaINxfojsaOiWj1abQm-jbTItI"
+UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
 
 # Function to fetch an image from Unsplash based on food name
 def fetch_food_image(food_name):
