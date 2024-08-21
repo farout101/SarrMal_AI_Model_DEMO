@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import os
 import env
+import json
 
 # Configuration
 genai.configure(api_key=env.GEMINI_AI_API_KEY, transport='grpc')
@@ -12,20 +13,44 @@ def generate_food_suggestion(prompt):
         model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v1-uss801z982xp')
         result = model.generate_content(prompt)
         
-        # Accessing the generated content
-        return result.text
-    except genai.exceptions.APIError as api_err:
-        st.error("Oops! There was a problem connecting to the AI service. Please try again later.")
-        st.write(api_err)
-        return None
-    except ValueError as val_err:
-        st.error("It seems there was an issue with the input provided. Please check and try again.")
-        st.write(val_err)
+        # Parse the JSON response
+        response = json.loads(result.text)
+        return response
+    except json.JSONDecodeError as json_err:
+        st.error("There was an error processing the response. Please try again later.")
+        st.write(json_err)
         return None
     except Exception as e:
-        st.error("Something went wrong. Please try again.")
+        st.error("An unexpected error occurred. Please try again.")
         st.write(e)
         return None
+
+# Function to display the meal plan
+def display_meal_plan(response):
+    if response:
+        st.subheader("Meal Plan")
+        
+        for meal_time, meal_info in response['response'].items():
+            st.write(f"### {meal_time.capitalize()}")
+            main_dish = meal_info.get("main_dish", {})
+            side_dish = meal_info.get("side_dish", {})
+
+            if main_dish:
+                st.write(f"**Main Dish:** {main_dish.get('name')}")
+                st.write(f"- Calories: {main_dish.get('calories')} kcal")
+                st.write(f"- Category: {main_dish.get('category')}")
+                st.write(f"- Ingredients: {main_dish.get('ingredients')}")
+                st.write(f"- How to Cook: {main_dish.get('how_to_cook')}")
+                st.write(f"- Meal Time: {main_dish.get('meal_time')}")
+            
+            if side_dish:
+                st.write(f"**Side Dish:** {side_dish.get('name')}")
+                st.write(f"- Calories: {side_dish.get('calories')} kcal")
+                st.write(f"- Category: {side_dish.get('category')}")
+                st.write(f"- Ingredients: {side_dish.get('ingredients')}")
+                st.write(f"- How to Cook: {side_dish.get('how_to_cook')}")
+                st.write(f"- Meal Time: {side_dish.get('meal_time')}")
+            st.write("\n")
 
 # Streamlit app layout
 st.title("AI-Powered Food Suggestion Chatbot")
@@ -65,12 +90,10 @@ if st.button("Get Food Suggestion"):
         response = generate_food_suggestion(prompt)
         with chat_container:
             if response:
-                st.subheader("Suggested Food Plan")
-                st.write(response)
+                display_meal_plan(response)
             else:
                 st.warning("No response generated. Please check your input or try again later.")
 
 # Button to clear the chat
 if st.button("Clear"):
     st.session_state.clear()
-
