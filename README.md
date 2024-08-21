@@ -40,6 +40,28 @@ Follow these steps to set up the project on your local machine.
 
 Before running the chatbot, you need to configure your API keys. The chatbot can use either OpenAI's API or Google's Gemini AI, depending on your preference.
 
+### Code Structure
+
+Chatbot_With_Streamlit/
+│
+├── .gitignore
+├── botv1.py
+├── botv2.py
+├── env.py
+├── FoodSuggestion.py
+├── model_test.py
+├── notes.ipynb
+├── README.md
+├── requirements.txt
+│
+├── saves/
+│ ├── client_secret_1.json
+│ ├── client_secret_2.json
+│ ├── client_secret_web.json
+│ └── GoogleAuthentication.txt
+│
+└── pycache/
+
 ### Option 1: OpenAI API Key
 
 1. **Set Up Environment Variables**:
@@ -116,3 +138,6 @@ Feel free to submit issues or pull requests if you have improvements or bug fixe
 # Save the content to a README.md file
 with open("/mnt/data/README.md", "w") as file:
     file.write(readme_content)
+
+# Credentials
+The credentials for the OpenAI API and Google Gemini AI API are stored in the `env.py` file. You need to set up these credentials before running the chatbot.
