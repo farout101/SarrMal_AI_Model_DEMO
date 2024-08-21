@@ -3,7 +3,7 @@ import google.generativeai as genai
 import os
 import json
 
-#No Gemini API key is required for this model
+#This is a Tuned Gemini Modela and No Gemini API key is required for this model!!
 
 # Function to generate a food suggestion based on user input
 def generate_food_suggestion(prompt):
