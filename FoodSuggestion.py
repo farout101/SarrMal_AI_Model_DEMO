@@ -3,8 +3,7 @@ import google.generativeai as genai
 import os
 import json
 
-# Configuration
-genai.configure(api_key=os.getenv("GEMINI_AI_API_KEY"), transport='grpc')
+#No Gemini API key is required for this model
 
 # Function to generate a food suggestion based on user input
 def generate_food_suggestion(prompt):
