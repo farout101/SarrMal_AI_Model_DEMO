@@ -2,10 +2,10 @@ import streamlit as st
 import google.generativeai as genai
 import os
 import json
+import requests
 import env
 
 UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
-#This is a Tuned Gemini Modela and No Gemini API key is required for this model!!
 
 # Function to generate a food suggestion based on user input
 def generate_food_suggestion(prompt):
@@ -25,6 +25,21 @@ def generate_food_suggestion(prompt):
         st.write(e)
         return None
 
+# Function to fetch an image from Unsplash based on food name
+def fetch_food_image(food_name):
+    url = f"https://api.unsplash.com/search/photos?page=1&query={food_name}&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        if data['results']:
+            return data['results'][0]['urls']['small']  # Return the URL of the first image
+        else:
+            return None
+    else:
+        st.error(f"Error fetching image: {response.status_code}")
+        return None
+
 # Function to display the meal plan
 def display_meal_plan(response):
     if response:
@@ -37,6 +52,10 @@ def display_meal_plan(response):
 
             if main_dish:
                 st.write(f"**Main Dish:** {main_dish.get('name')}")
+                # Fetch and display the image for the main dish
+                image_url = fetch_food_image(main_dish.get('name'))
+                if image_url:
+                    st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
                 st.write(f"- Calories: {main_dish.get('calories')} kcal")
                 st.write(f"- Category: {main_dish.get('category')}")
                 st.write(f"- Ingredients: {main_dish.get('ingredients')}")
@@ -45,6 +64,10 @@ def display_meal_plan(response):
             
             if side_dish:
                 st.write(f"**Side Dish:** {side_dish.get('name')}")
+                # Fetch and display the image for the side dish
+                image_url = fetch_food_image(side_dish.get('name'))
+                if image_url:
+                    st.image(image_url, caption=side_dish.get('name'), use_column_width=True)
                 st.write(f"- Calories: {side_dish.get('calories')} kcal")
                 st.write(f"- Category: {side_dish.get('category')}")
                 st.write(f"- Ingredients: {side_dish.get('ingredients')}")
