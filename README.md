@@ -139,10 +139,3 @@ The required informations are in the `notes.ipynb` file.
 
 Feel free to submit issues or pull requests if you have improvements or bug fixes.
 """
-
-# Save the content to a README.md file
-with open("/mnt/data/README.md", "w") as file:
-    file.write(readme_content)
-
-# Credentials
-The credentials for the OpenAI API and Google Gemini AI API are stored in the `env.py` file. You need to set up these credentials before running the chatbot.
