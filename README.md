@@ -1,6 +1,5 @@
 # Creating the README.md file with the provided content
 
-readme_content = """
 # Streamlit Chatbot
 
 This project is a simple chatbot built using Streamlit, integrated with OpenAI's API and Google's Gemini AI. The chatbot allows users to interact with AI models to get responses based on user input.
@@ -42,6 +41,7 @@ Before running the chatbot, you need to configure your API keys. The chatbot can
 
 ### Code Structure
 
+```
 Chatbot_With_Streamlit/
 │
 ├── .gitignore
@@ -61,6 +61,7 @@ Chatbot_With_Streamlit/
 │ └── GoogleAuthentication.txt
 │
 └── pycache/
+```
 
 ### Option 1: OpenAI API Key
 
