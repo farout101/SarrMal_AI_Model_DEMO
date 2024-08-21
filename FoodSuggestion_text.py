@@ -5,6 +5,7 @@ import json
 import env
 
 UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
+
 #This is a Tuned Gemini Modela and No Gemini API key is required for this model!!
 
 # Function to generate a food suggestion based on user input
