@@ -27,7 +27,7 @@ def generate_food_suggestion(prompt):
 
 # Function to fetch an image from Unsplash based on food name
 def fetch_food_image(food_name):
-    url = f"https://api.unsplash.com/search/photos?page=1&query={food_name}&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
+    url = f"https://api.unsplash.com/search/photos?page=1&query={food_name} food&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
     response = requests.get(url)
     
     if response.status_code == 200:
