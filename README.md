@@ -138,4 +138,3 @@ The required informations are in the `notes.ipynb` file.
 ## Contributing
 
 Feel free to submit issues or pull requests if you have improvements or bug fixes.
-"""
