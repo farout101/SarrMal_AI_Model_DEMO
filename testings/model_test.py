@@ -10,9 +10,9 @@ model = genai.GenerativeModel(model_name=f'tunedModels/food-suggestion-ai-v1-uss
 
 # Providing a prompt for the model to generate content based on.
 prompt = """{
-    "weight": 70,
-    "height": 175,
-    "age": 25,
+    "weight": 0,
+    "height": 0,
+    "age": 0,
     "diseases": ["None"],
     "allergies": ["Peanuts"],
     "gender": "Male",
