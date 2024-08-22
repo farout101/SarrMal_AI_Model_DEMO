@@ -135,6 +135,8 @@ model = genai.GenerativeModel(
 
 history = []
 
+print("Bot: Hello! How can I assist you today?")
+
 while True:
   
   user_input = input("You: ")
@@ -147,9 +149,9 @@ while True:
 
   model_response = response.text
   
-  print(model_response)
+  print(f'Bot: {model_response}')
   print()
   
   history.append({"role": "user", "parts": [user_input]})
-  history
+  history.append({"role": "model", "parts": [model_response]})
   
