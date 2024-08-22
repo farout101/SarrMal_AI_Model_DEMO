@@ -1,4 +1,4 @@
-from Apps import env
+import env
 import os
 import google.generativeai as genai
 from google.ai.generativelanguage_v1beta.types import content
