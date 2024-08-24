@@ -11,7 +11,7 @@ UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
 # Function to generate a food suggestion based on user input
 def generate_food_suggestion(prompt):
     try:
-        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v1-uss801z982xp')
+        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v2-tk4jopaubsqf')
         result = model.generate_content(prompt)
         
         # Parse the JSON response
