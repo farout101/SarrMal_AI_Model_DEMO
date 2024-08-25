@@ -1,7 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 import os
-import Apps.env as env
+import env
 
 # Configuration
 genai.configure(api_key=env.GEMINI_AI_API_KEY)

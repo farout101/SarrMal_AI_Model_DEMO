@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-import Apps.env as env
+import env
 
 # Unsplash API details
 UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY

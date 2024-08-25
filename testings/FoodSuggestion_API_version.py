@@ -6,7 +6,7 @@ $ pip install google.ai.generativelanguage
 """
 
 import os
-import env
+import env as env
 import google.generativeai as genai
 from google.ai.generativelanguage_v1beta.types import content
 

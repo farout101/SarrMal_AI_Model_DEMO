@@ -19,8 +19,6 @@ prompt = """{
     "exercise": "Moderate"
   }"""
 
-prompt = '{"weight": 89, "height": 170, "age": 19, "diseases": ["Diabetes"], "allergies": ["None"], "gender": "Male", "exercise": "Moderate"}'
-
 # Generating content using the loaded model and the provided prompt.
 for x in range(10):
   result = model.generate_content(prompt)
