@@ -20,7 +20,6 @@ prompt = """{
   }"""
 
 # Generating content using the loaded model and the provided prompt.
-for x in range(10):
-  result = model.generate_content(prompt)
-  # Printing the generated content.
-  print(result.text)
+result = model.generate_content(prompt)
+# Printing the generated content.
+print(result.text)
