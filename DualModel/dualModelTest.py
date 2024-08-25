@@ -9,7 +9,7 @@ import openAImodel
 
 # Set your API keys
 UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
-openai.api_key = env.OPENAI_API_KEY
+openai.api_key = env.OPEN_AI_API_KEY
 
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):
