@@ -104,6 +104,7 @@ st.write("Get personalized food suggestions based on your profile!")
 
 # Toggle for selecting the AI model
 model_choice = st.radio("Choose the AI model", options=["Gemini (Google)", "OpenAI (GPT-4)"])
+st.write("(Please note that the OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate. Additionally, the format for ingredients may vary slightly between models.)")
 
 # User input fields for generating the food suggestion prompt
 st.subheader("Your Details")
