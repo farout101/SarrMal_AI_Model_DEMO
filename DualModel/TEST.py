@@ -99,53 +99,68 @@ def display_meal_plan(response):
 
 # Streamlit app layout
 st.title("AI-Powered Food Suggestion Chatbot")
-st.write("Get personalized food suggestions based on your profile!")
+st.write("Get personalized food suggestions or chat about nutrition!")
+
+# Sidebar for selecting functionality
+functionality_choice = st.sidebar.selectbox(
+    "Choose Functionality",
+    ["Generate Meal Plan", "Chat about Food and Nutrition"]
+)
 
 # Toggle for selecting the AI model
-model_choice = st.radio("Choose the AI model", options=["Gemini (Google)", "OpenAI (GPT-4)"])
-st.write("(Please note that the OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate. Additionally, the format for ingredients may vary slightly between models.)")
+model_choice = st.sidebar.radio("Choose the AI model", options=["Gemini (Google)", "OpenAI (GPT-4)"])
+st.sidebar.write("Please note that the OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate. Additionally, the format for ingredients may vary slightly between models.")
 
-# User input fields for generating the food suggestion prompt
-st.subheader("Your Details")
-weight = st.number_input("Weight (kg)", min_value=1, max_value=300, value=70)
-height = st.number_input("Height (cm)", min_value=30, max_value=250, value=175)
-age = st.number_input("Age", min_value=1, max_value=120, value=25)
-gender = st.selectbox("Gender", ["Male", "Female", "Other"])
-exercise = st.selectbox("Exercise Level", ["None", "Light", "Moderate", "Intense"])
-diseases = st.text_area("List any diseases (comma-separated)", "None")
-allergies = st.text_area("List any allergies (comma-separated)", "Peanuts")
+if functionality_choice == "Generate Meal Plan":
+    # User input fields for generating the food suggestion prompt
+    st.subheader("Your Details")
+    weight = st.number_input("Weight (kg)", min_value=1, max_value=300, value=70)
+    height = st.number_input("Height (cm)", min_value=30, max_value=250, value=175)
+    age = st.number_input("Age", min_value=1, max_value=120, value=25)
+    gender = st.selectbox("Gender", ["Male", "Female", "Other"])
+    exercise = st.selectbox("Exercise Level", ["None", "Light", "Moderate", "Intense"])
+    diseases = st.text_area("List any diseases (comma-separated)", "None")
+    allergies = st.text_area("List any allergies (comma-separated)", "Peanuts")
 
-# Generate the prompt based on user input
-prompt = f"""{{
-    "weight": {weight},
-    "height": {height},
-    "age": {age},
-    "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
-    "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
-    "gender": "{gender}",
-    "exercise": "{exercise}"
-}}"""
+    # Generate the prompt based on user input
+    prompt = f"""{{
+        "weight": {weight},
+        "height": {height},
+        "age": {age},
+        "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
+        "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
+        "gender": "{gender}",
+        "exercise": "{exercise}"
+    }}"""
 
-st.write("### Generated Prompt")
-st.code(prompt)
+    st.write("### Generated Prompt")
+    st.code(prompt)
 
-# Container for displaying the chat messages
-chat_container = st.container()
+    # Container for displaying the chat messages
+    chat_container = st.container()
 
-# Button to generate and display the food suggestion
-if st.button("Get Food Suggestion"):
-    with st.spinner("Generating food suggestion..."):
-        if model_choice == "Gemini (Google)":
-            response = generate_food_suggestion_gemini(prompt)
-        else:
-            response = generate_food_suggestion_openai(prompt)
-        
-        with chat_container:
-            if response:
-                display_meal_plan(response)
+    # Button to generate and display the food suggestion
+    if st.button("Get Food Suggestion"):
+        with st.spinner("Generating food suggestion..."):
+            if model_choice == "Gemini (Google)":
+                response = generate_food_suggestion_gemini(prompt)
             else:
-                st.warning("No response generated. Please check your input or try again later.")
+                response = generate_food_suggestion_openai(prompt)
+            
+            with chat_container:
+                if response:
+                    display_meal_plan(response)
+                else:
+                    st.warning("No response generated. Please check your input or try again later.")
 
+elif functionality_choice == "Chat about Food and Nutrition":
+    st.subheader("Chat with AI about Food and Nutrition")
+    user_message = st.text_input("You: ", "")
+    
+    if st.button("Send"):
+        # Placeholder for AI response logic
+        st.write("AI: [Chatbot response about food and nutrition here]")
+    
 # Button to clear the chat
 if st.button("Clear"):
     st.session_state.clear()
