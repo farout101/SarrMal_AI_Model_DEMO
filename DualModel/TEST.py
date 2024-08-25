@@ -4,7 +4,7 @@ import openai
 import os
 import json
 import requests
-import env
+import env, gemiChat, openAIChat
 import openAImodel
 
 # Set your API keys
@@ -155,12 +155,67 @@ if functionality_choice == "Generate Meal Plan":
 
 elif functionality_choice == "Chat about Food and Nutrition":
     st.subheader("Chat with AI about Food and Nutrition")
-    user_message = st.text_input("You: ", "")
-    
-    if st.button("Send"):
-        # Placeholder for AI response logic
-        st.write("AI: [Chatbot response about food and nutrition here]")
-    
+    if model_choice == "Gemini (Google)":
+        st.write("Gemini (Google) is Active.")
+    else:
+        st.write("OpenAI (GPT-4) is Active.")
+    # Function to display chat messages
+    def display_chat_message(role, message):
+        with st.chat_message(role):
+            st.write(message)
+
+    # Streamlit app layout
+    st.title("Food Related Chatbot with Gemini AI")
+    st.write("Ask me anything related to food!")
+
+    # Predefined prompts
+    predefined_prompts = [
+        "What are some healthy meal ideas for weight loss?",
+        "How can I plan a balanced diet?",
+        "What are the benefits of a vegetarian diet?",
+        "What are the best sources of protein for vegetarians?",
+        "How can I cook healthy meals on a budget?",
+        "What are some tips for meal prepping?"
+    ]
+
+    # Dropdown for predefined prompts
+    selected_prompt = st.selectbox("Choose a predefined prompt:", predefined_prompts)
+
+    # Predefined custom instructions
+    custom_instructions = "You are the Chatbot for the food suggesion and food related app, you only need to answer the question that are related to food and nutrition. IF THE QUESTIONS ARE NOT RELATED TO FOOD AND NUTRITION SIMPLY ANSWER that 'I am a food suggestion chatbot',"
+
+    # Container for chat messages
+    chat_container = st.container()
+
+    # Handle predefined prompt
+    if st.button("Ask"):
+        with st.spinner("Generating response..."):
+            full_prompt = f"{custom_instructions} {selected_prompt}"
+            response = gemiChat.generate_response(full_prompt)
+            with chat_container:
+                display_chat_message("user", selected_prompt)
+                display_chat_message("assistant", response)
+
+    # User input
+    user_input = st.text_input("You:", "")
+
+    col1, col2 = st.columns([9, 1])
+
+    # Handle user input
+    with col1:
+        if st.button("Send"):
+            if user_input:
+                with st.spinner("Generating response..."):
+                    if model_choice == "Gemini (Google)":
+                        response = gemiChat.generate_response(user_input)
+                    else:
+                        response = openAIChat.generate_response(user_input)
+                    with chat_container:
+                        display_chat_message("user", user_input)
+                        display_chat_message("assistant", response)
+            else:
+                st.warning("Please enter a message before sending.")
+        
 # Button to clear the chat
 if st.button("Clear"):
     st.session_state.clear()
