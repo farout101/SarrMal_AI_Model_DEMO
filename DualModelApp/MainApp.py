@@ -85,10 +85,10 @@ def display_meal_plan(response):
                 
                 if model_choice == "OpenAI (GPT-4)":
                     # Ingredients are likely a list in OpenAI model
-                    ingredients = ', '.join(main_dish.get('ingredients', []))
+                    ingredients = ', '.join(side_dish.get('ingredients', []))
                 else:
                     # Ingredients might be a string in Google model
-                    ingredients = main_dish.get('ingredients', '')
+                    ingredients = side_dish.get('ingredients', '')
 
                 # Display the ingredients as a comma-separated string
                 st.write(f"- Ingredients: {ingredients}")
@@ -136,9 +136,6 @@ if functionality_choice == "Generate Meal Plan":
     st.write("### Generated Prompt")
     st.code(prompt)
 
-    # Container for displaying the chat messages
-    chat_container = st.container()
-
     # Button to generate and display the food suggestion
     if st.button("Get Food Suggestion"):
         with st.spinner("Generating food suggestion..."):
@@ -147,45 +144,59 @@ if functionality_choice == "Generate Meal Plan":
             else:
                 response = generate_food_suggestion_openai(prompt)
             
-            with chat_container:
-                if response:
-                    display_meal_plan(response)
-                else:
-                    st.warning("No response generated. Please check your input or try again later.")
+            if response:
+                display_meal_plan(response)
+            else:
+                st.warning("No response generated. Please check your input or try again later.")
 
 elif functionality_choice == "Chat about Food and Nutrition":
     if model_choice == "Gemini (Google)":
         st.write("Gemini (Google) is Active.")
     else:
         st.write("OpenAI (GPT-4) is Active.")
+
     # Function to display chat messages
     def display_chat_message(role, message):
         with st.chat_message(role):
             st.write(message)
 
-    # Predefined custom instructions
-    custom_instructions = "You are the Chatbot for the food suggesion and food related app, you only need to answer the question that are related to food and nutrition. IF THE QUESTIONS ARE NOT RELATED TO FOOD AND NUTRITION SIMPLY ANSWER that 'I am a food suggestion chatbot',"
+    # Initialize session state for chat history if not already initialized
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
 
     # Container for chat messages
     chat_container = st.container()
 
     # User input
-    user_input = st.text_input("You:", "What are you and how can you help me with food and nutrition?")
+    user_input = st.text_input("You:", "")
 
     # Handle user input
     if st.button("Send"):
         if user_input:
+            # Append user message to chat history
+            st.session_state.chat_history.append({"role": "user", "message": user_input})
+
+            # Generate response
             with st.spinner("Generating response..."):
                 if model_choice == "Gemini (Google)":
                     response = "Chat with Gemini (Google) is not available because the Chat API is unusable when using Google OAuth2.0."
                 else:
                     response = openAIChat.generate_response(user_input)
-                with chat_container:
-                    display_chat_message("user", user_input)
-                    display_chat_message("assistant", response)
+
+            # Append AI response to chat history
+            st.session_state.chat_history.append({"role": "assistant", "message": response})
+
+            # Clear input field after sending
+            # st.text_input("You:", "", key="user_input")
+
         else:
             st.warning("Please enter a message before sending.")
-        
-# Button to clear the chat
-if st.button("Clear"):
-    st.session_state.clear()
+
+    # Display the entire chat history
+    with chat_container:
+        for message in st.session_state.chat_history:
+            display_chat_message(message["role"], message["message"])
+
+    # Button to clear the chat history
+    if st.button("Clear Chat"):
+        st.session_state.chat_history = []
