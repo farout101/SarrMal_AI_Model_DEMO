@@ -8,7 +8,7 @@ import json
 load_dotenv()
 
 # Function to generate a response using Google Generative AI
-def gemini_chat_with_api(prompt):
+def gemini_chat_api(prompt):
     # Configuration
     genai.configure(api_key=os.environ.get("GEMINI_AI_API_KEY"))
     generation_config = {"temperature": 0.25, "max_output_tokens": 1024, "top_k": 40, "top_p": 0.95}
