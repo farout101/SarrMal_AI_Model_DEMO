@@ -2,9 +2,11 @@ import streamlit as st
 import google.generativeai as genai
 import os
 import json
-import Apps.env as env
+from dotenv import load_dotenv
 
-UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
+load_dotenv()
+
+UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
 
 #This is a Tuned Gemini Modela and No Gemini API key is required for this model!!
 

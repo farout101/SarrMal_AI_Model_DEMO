@@ -2,10 +2,13 @@ from pydantic import BaseModel, ValidationError
 import openai
 import json
 from typing import List
-import env
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set your OpenAI API key
-openai.api_key = env.OPENAI_API_KEY
+openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 
 class Dish(BaseModel):
     name: str

@@ -3,4 +3,5 @@ __pycache__/
 env.py
 saves
 .venv
+.env
 package-lock.json

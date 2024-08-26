@@ -3,9 +3,11 @@ import google.generativeai as genai
 import os
 import json
 import requests
-import env
+from dotenv import load_dotenv
 
-UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
+load_dotenv()
+
+UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
 
 # Function to generate a food suggestion based on user input
 def generate_food_suggestion(prompt):

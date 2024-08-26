@@ -1,8 +1,11 @@
 import openai
-import env
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set your OpenAI API key from environment variable
-openai.api_key = env.OPEN_AI_API_KEY
+openai.api_key = os.environ.get("OPEN_AI_API_KEY") 
 
 # Function to generate a response from OpenAI
 def generate_response(prompt):

@@ -4,12 +4,14 @@ import openai
 import os
 import json
 import requests
-import env
 import openAImodel
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set your API keys
-UNSPLASH_ACCESS_KEY = env.UNSPLASH_ACCESS_KEY
-openai.api_key = env.OPEN_AI_API_KEY
+UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
+openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):

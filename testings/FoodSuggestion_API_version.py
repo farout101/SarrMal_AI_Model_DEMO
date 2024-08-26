@@ -6,11 +6,13 @@ $ pip install google.ai.generativelanguage
 """
 
 import os
-import env as env
+from dotenv import load_dotenv
 import google.generativeai as genai
 from google.ai.generativelanguage_v1beta.types import content
 
-genai.configure(api_key=env.GEMINI_AI_API_KEY)
+load_dotenv()
+
+genai.configure(api_key=os.environ.get("GEMINI_AI_API_KEY"))
 # Create the model
 generation_config = {
   "temperature": 0.1,
