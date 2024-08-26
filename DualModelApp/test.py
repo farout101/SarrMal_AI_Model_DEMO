@@ -2,9 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import openai
 import os
-import json
-import requests
-from components import chats, image_searching, food_suggestions
+from components import chat_bots, image_searchings, food_suggestions
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,7 +20,7 @@ def generate_food_suggestion_openai(prompt):
 
 # Function to fetch an image from Unsplash
 def fetch_food_image(food_name):
-    return image_searching.fetch_google(food_name)
+    return image_searchings.fetch_google(food_name)
 
 # Function to display the meal plan
 def display_meal_plan(response):
@@ -164,7 +162,7 @@ elif functionality_choice == "Chat about Food and Nutrition":
                 if model_choice == "Gemini (Google)":
                     response = "Chat with Gemini (Google) is not available because the Chat API is unusable when using Google OAuth2.0."
                 else:
-                    response = chats.openai_chat(user_input)
+                    response = chat_bots.openai_chat(user_input)
 
             # Append AI response to chat history
             st.session_state.chat_history.append({"role": "assistant", "message": response})
