@@ -6,12 +6,13 @@ import openai
 
 load_dotenv()
 
-# Configuration
-genai.configure(api_key=os.environ.get("GEMINI_AI_API_KEY"))
-generation_config = {"temperature": 0.25, "max_output_tokens": 1024, "top_k": 40, "top_p": 0.95}
-
 # Function to generate a response using Google Generative AI
 def gemini_chat(prompt):
+    
+    # Configuration
+    genai.configure(api_key=os.environ.get("GEMINI_AI_API_KEY"))
+    generation_config = {"temperature": 0.25, "max_output_tokens": 1024, "top_k": 40, "top_p": 0.95}
+        
     try:
         model = genai.GenerativeModel("gemini-pro", generation_config=generation_config)
         chat_session = genai.ChatSession(model=model)  # Initialize chat session

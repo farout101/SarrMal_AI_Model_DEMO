@@ -28,6 +28,8 @@ def generate_openai(prompt):
                     "allergies": ["None"],
                     "gender": "Male",
                     "exercise": "High"
+                    "preferred": ["None"],
+                    "food type": ["Healthy"]
                 }"""},
                 {"role": "assistant", "content": """{
                 "response": {
