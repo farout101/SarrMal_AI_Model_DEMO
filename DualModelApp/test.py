@@ -100,8 +100,8 @@ if functionality_choice == "Generate Meal Plan":
     exercise = st.selectbox("Exercise Level", ["None", "Light", "Moderate", "Intense"])
     diseases = st.text_area("List any diseases (comma-separated)", "None")
     allergies = st.text_area("List any allergies (comma-separated)", "Peanuts")
-    preferred_food = st.selectbox("Preferred Food", ["Burmese", "Thiland", "Chinese", "Western", "Japanese", "Korean", "Indian", "Vietnamese", "Indonesian", "Malay", "Filipino", "Other"])
-    food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym Rat","High Calorie", "High fibre", "Other"])
+    preferred_food = st.selectbox("Preferred Food", ["Burmese", "Thiland", "Chinese", "Western", "Japanese", "Korean", "Indian", "Vietnamese", "Indonesian", "Malay", "Filipino", "Mexican", "French", "Other"])
+    food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym Rat","High-Calorie", "High-Fibre", "Low-sugar", "High-Protein", "Balanced","Other"])
 
     # Generate the prompt based on user input
     prompt = f"""{{
@@ -113,7 +113,7 @@ if functionality_choice == "Generate Meal Plan":
         "gender": "{gender}",
         "exercise": "{exercise}",
         "preferred": "{preferred_food}",
-        "food_type": "{food_type}"
+        "food-type": "{food_type}"
     }}"""
 
     st.write("### Generated Prompt")
