@@ -4,7 +4,8 @@ import openai
 import os
 import json
 import requests
-from components import openAIChat, openAImodel
+from DualModelApp.components import food_suggestions
+from components import openAIChat
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +32,7 @@ def generate_food_suggestion_gemini(prompt):
 
 # Function to generate a food suggestion using OpenAI model
 def generate_food_suggestion_openai(prompt):
-    return openAImodel.generate_food_suggestion_openai(prompt)
+    return food_suggestions.generate_food_suggestion_openai(prompt)
 
 # Function to fetch an image from Unsplash
 def fetch_food_image(food_name):

@@ -4,48 +4,25 @@ import openai
 import os
 import json
 import requests
-from components import openAIChat, openAImodel
+from components import openAIChat, image_searching, food_suggestions
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Set your API keys
-UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
 openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):
-    try:
-        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v2-tk4jopaubsqf')
-        result = model.generate_content(prompt)
-        response = json.loads(result.text)
-        return response
-    except json.JSONDecodeError as json_err:
-        st.error("There was an error processing the response. Please try again later.")
-        st.write(json_err)
-        return None
-    except Exception as e:
-        st.error("An unexpected error occurred. Please try again.")
-        st.write(e)
-        return None
+    return food_suggestions.generate_gemini(prompt)
 
 # Function to generate a food suggestion using OpenAI model
 def generate_food_suggestion_openai(prompt):
-    return openAImodel.generate_food_suggestion_openai(prompt)
+    return food_suggestions.generate_openai(prompt)
 
 # Function to fetch an image from Unsplash
 def fetch_food_image(food_name):
-    url = f"https://api.unsplash.com/search/photos?page=1&query={food_name} food&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        if data['results']:
-            return data['results'][0]['urls']['small']
-        else:
-            return None
-    else:
-        st.error(f"Error fetching image: {response.status_code}")
-        return None
+    return image_searching.fetch_google(food_name)
 
 # Function to display the meal plan
 def display_meal_plan(response):

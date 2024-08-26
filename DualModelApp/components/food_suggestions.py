@@ -1,8 +1,10 @@
 import openai
 import json
 import streamlit as st
+import openai
+import google.generativeai as genai
 
-def generate_food_suggestion_openai(prompt):
+def generate_openai(prompt):
     """
     Generates a food suggestion using the OpenAI GPT model.
 
@@ -92,6 +94,22 @@ def generate_food_suggestion_openai(prompt):
         completion_content = response['choices'][0]['message']['content']
         response_json = json.loads(completion_content)
         return response_json
+    except json.JSONDecodeError as json_err:
+        st.error("There was an error processing the response. Please try again later.")
+        st.write(json_err)
+        return None
+    except Exception as e:
+        st.error("An unexpected error occurred. Please try again.")
+        st.write(e)
+        return None
+    
+    
+def generate_gemini(prompt):
+    try:
+        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v2-tk4jopaubsqf')
+        result = model.generate_content(prompt)
+        response = json.loads(result.text)
+        return response
     except json.JSONDecodeError as json_err:
         st.error("There was an error processing the response. Please try again later.")
         st.write(json_err)
