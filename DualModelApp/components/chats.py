@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+import openai
 
 load_dotenv()
 
@@ -10,7 +11,7 @@ genai.configure(api_key=os.environ.get("GEMINI_AI_API_KEY"))
 generation_config = {"temperature": 0.25, "max_output_tokens": 1024, "top_k": 40, "top_p": 0.95}
 
 # Function to generate a response using Google Generative AI
-def generate_response(prompt):
+def gemini_chat(prompt):
     try:
         model = genai.GenerativeModel("gemini-pro", generation_config=generation_config)
         chat_session = genai.ChatSession(model=model)  # Initialize chat session
@@ -35,3 +36,18 @@ def generate_response(prompt):
         st.error("Something went wrong. Please try again.")
         st.write(e)
         return None
+
+# Set your OpenAI API key from environment variable
+openai.api_key = os.environ.get("OPEN_AI_API_KEY") 
+
+# Function to generate a response from OpenAI
+def openai_chat(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    message = response.choices[0].message["content"].strip()
+    return message
