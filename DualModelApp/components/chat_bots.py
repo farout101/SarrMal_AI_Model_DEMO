@@ -3,12 +3,12 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 import openai
+import json
 
 load_dotenv()
 
 # Function to generate a response using Google Generative AI
-def gemini_chat(prompt):
-    
+def gemini_chat_with_api(prompt):
     # Configuration
     genai.configure(api_key=os.environ.get("GEMINI_AI_API_KEY"))
     generation_config = {"temperature": 0.25, "max_output_tokens": 1024, "top_k": 40, "top_p": 0.95}
@@ -38,6 +38,22 @@ def gemini_chat(prompt):
         st.write(e)
         return None
 
+def gemini_chat_oauth(prompt):
+    try:
+        model = genai.GenerativeModel(model_name='tunedModels/food-chatbot-v1-1iu6wv9qk496')
+        result = model.generate_content(prompt)
+        for response in result:
+            text = result["result"]["candidates"][0]["content"]["parts"][0]["text"]
+            print(text)
+    except json.JSONDecodeError as json_err:
+        st.error("There was an error processing the response. Please try again later.")
+        st.write(json_err)
+        return None
+    except Exception as e:
+        st.error("An unexpected error occurred. Please try again.")
+        st.write(e)
+        return None
+
 # Set your OpenAI API key from environment variable
 openai.api_key = os.environ.get("OPEN_AI_API_KEY") 
 
@@ -52,3 +68,5 @@ def openai_chat(prompt):
     )
     message = response.choices[0].message["content"].strip()
     return message
+
+print(gemini_chat_oauth("What is the capital of France?"))
