@@ -125,8 +125,8 @@ def generate_gemini_v3(prompt):
     try:
         model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v3-t2z0eh7qpaq8')
         result = model.generate_content(prompt)
-        response = json.loads(result.text)
-        return response
+        # response = json.loads(result.text)
+        return result
     except json.JSONDecodeError as json_err:
         st.error("There was an error processing the response. Please try again later.")
         st.write(json_err)
@@ -135,3 +135,25 @@ def generate_gemini_v3(prompt):
         st.error("An unexpected error occurred. Please try again.")
         st.write(e)
         return None
+    
+print(generate_gemini_v3("""{
+        "weight": 55,
+        "height": 150,
+        "age": 70,
+        "diseases": ["Arthritis"],
+        "allergies": ["None"],
+        "gender": "female",
+        "exercise": "Low",
+        "preferred": "Burmese",
+        "food-type": "Vegan"
+    }"""))
+
+# print(generate_gemini("""{
+#         "weight": 80,
+#         "height": 150,
+#         "age": 18,
+#         "diseases": ["Diabetes", "Hypertension"],
+#         "allergies": ["Peanuts"],
+#         "gender": "male",
+#         "exercise": "moderate",
+#     }"""))
