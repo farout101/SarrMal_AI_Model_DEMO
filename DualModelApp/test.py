@@ -102,6 +102,18 @@ if functionality_choice == "Generate Meal Plan":
     food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym Rat","High-Calorie", "High-Fibre", "Low-sugar", "High-Protein", "Balanced","Other"])
 
     # Generate the prompt based on user input
+    # prompt = f"""{{
+    #     "weight": {weight},
+    #     "height": {height},
+    #     "age": {age},
+    #     "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
+    #     "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
+    #     "gender": "{gender}",
+    #     "exercise": "{exercise}",
+    #     "preferred": "{preferred_food}",
+    #     "food-type": "{food_type}"
+    # }}"""
+
     prompt = f"""{{
         "weight": {weight},
         "height": {height},
@@ -110,8 +122,6 @@ if functionality_choice == "Generate Meal Plan":
         "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
         "gender": "{gender}",
         "exercise": "{exercise}",
-        "preferred": "{preferred_food}",
-        "food-type": "{food_type}"
     }}"""
 
     st.write("### Generated Prompt")

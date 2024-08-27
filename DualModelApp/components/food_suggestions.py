@@ -3,7 +3,8 @@ import json
 import streamlit as st
 import openai
 import google.generativeai as genai
-
+import os
+    
 def generate_openai(prompt):
     """
     Generates a food suggestion using the OpenAI GPT model.
@@ -103,12 +104,12 @@ def generate_openai(prompt):
     except Exception as e:
         st.error("An unexpected error occurred. Please try again.")
         st.write(e)
-        return None
+        return None    
     
-    
+
 def generate_gemini(prompt):
     try:
-        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v2-tk4jopaubsqf')
+        model = genai.GenerativeModel(model_name='tunedModels/food-chatbot-v1-1iu6wv9qk496')
         result = model.generate_content(prompt)
         response = json.loads(result.text)
         return response
@@ -125,6 +126,7 @@ def generate_gemini_v3(prompt):
     try:
         model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v3-t2z0eh7qpaq8')
         result = model.generate_content(prompt)
+        # response = json.loads(result.text)
         return result.text
     except json.JSONDecodeError as json_err:
         st.error("There was an error processing the response. Please try again later.")
@@ -139,20 +141,20 @@ print(generate_gemini("""{{
         "weight": 80,
         "height": 140,
         "age": 30,
-        "diseases": ["Diabetes","hyptertension"],
-        "allergies": ["peanuts","milk"],
+        "diseases": "Diabetes, hyptertension",
+        "allergies": "peanut, milk",
         "gender": "male",
         "exercise": "moderate",
     }}"""))
 
-print(generate_gemini("""{{
-        "weight": 80,
-        "height": ,
-        "age": {age},
-        "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
-        "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
-        "gender": "{gender}",
-        "exercise": "{exercise}",
-        "preferred": "{preferred_food}",
-        "food-type": "{food_type}"
-    }}"""))
+# print(generate_gemini_v3("""{{
+#         "weight": 80,
+#         "height": 140,
+#         "age": 40,
+#         "diseases": "Diabetes,hyptertension",   
+#         "allergies": "Shell Fish",
+#         "gender": "male",
+#         "exercise": "moderate",
+#         "preferred": "Burmese",
+#         "food-type": "Vegetarian",
+#     }}"""))
