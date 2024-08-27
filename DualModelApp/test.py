@@ -119,6 +119,8 @@ if functionality_choice == "Generate Meal Plan":
         "food-type": "{food_type}"
     }}"""
 
+    #For Model1 and Model2
+
     # prompt = f"""{{
     #     "weight": {weight},
     #     "height": {height},
