@@ -140,6 +140,7 @@ def generate_gemini_v3(prompt):
         st.write(e)
         return None
 
+#For testing the models    
     
 # print(generate_gemini("""{
 #                 "weight": 80,
@@ -151,14 +152,14 @@ def generate_gemini_v3(prompt):
 #                 "exercise": "moderate",
 #             }"""))
 
-print(generate_gemini_v3("""{
-        "weight": 80,
-        "height": 140,
-        "age": 40,
-        "diseases": ["Diabetes","hyptertension"],   
-        "allergies": ["Shell Fish"],
-        "gender": "male",
-        "exercise": "moderate",
-        "preferred": "Burmese",
-        "food-type": "Vegetarian",
-    }"""))
+# print(generate_gemini_v3("""{
+#         "weight": 80,
+#         "height": 140,
+#         "age": 40,
+#         "diseases": ["Diabetes","hyptertension"],   
+#         "allergies": ["Shell Fish"],
+#         "gender": "male",
+#         "exercise": "moderate",
+#         "preferred": "Burmese",
+#         "food-type": "Vegetarian",
+#     }"""))
