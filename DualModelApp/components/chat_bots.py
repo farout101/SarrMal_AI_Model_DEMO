@@ -40,11 +40,9 @@ def gemini_chat_api(prompt):
 
 def gemini_chat_oauth(prompt):
     try:
-        model = genai.GenerativeModel(model_name='tunedModels/food-chatbot-v1-1iu6wv9qk496')
+        model = genai.GenerativeModel(model_name='tunedModels/food-chatbot-v2-471btbzagxuv')
         result = model.generate_content(prompt)
-        for response in result:
-            text = result["result"]["candidates"][0]["content"]["parts"][0]["text"]
-            print(text)
+        return result.text
     except json.JSONDecodeError as json_err:
         st.error("There was an error processing the response. Please try again later.")
         st.write(json_err)
@@ -68,5 +66,3 @@ def openai_chat(prompt):
     )
     message = response.choices[0].message["content"].strip()
     return message
-
-print(gemini_chat_oauth("What is the capital of France?"))

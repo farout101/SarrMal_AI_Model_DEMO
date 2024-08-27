@@ -123,7 +123,7 @@ def generate_gemini(prompt):
     
 def generate_gemini_v3(prompt):
     try:
-        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v2-tk4jopaubsqf') # The model will be change here
+        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v3-t2z0eh7qpaq8')
         result = model.generate_content(prompt)
         response = json.loads(result.text)
         return response

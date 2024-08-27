@@ -12,7 +12,7 @@ openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):
-    return food_suggestions.generate_gemini(prompt)
+    return food_suggestions.generate_gemini_v3(prompt)
 
 # Function to generate a food suggestion using OpenAI model
 def generate_food_suggestion_openai(prompt):
@@ -160,9 +160,9 @@ elif functionality_choice == "Chat about Food and Nutrition":
             # Generate response
             with st.spinner("Generating response..."):
                 if model_choice == "Gemini (Google)":
-                    response = "Chat with Gemini (Google) is not available because the Chat API is unusable when using Google OAuth2.0."
+                    response = chat_bots.gemini_chat_oauth(user_input)
                 else:
-                    response = chat_bots.openai_chat(user_input)
+                    response = "The OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate. Additionally, the format for ingredients may vary slightly between models."
 
             # Append AI response to chat history
             st.session_state.chat_history.append({"role": "assistant", "message": response})
