@@ -101,8 +101,8 @@ if functionality_choice == "Generate Meal Plan":
     age = st.number_input("Age", min_value=1, max_value=120, value=25)
     gender = st.selectbox("Gender", ["Male", "Female", "Other"])
     exercise = st.selectbox("Exercise Level", ["None", "Light", "Moderate", "Intense"])
-    diseases = st.text_area("List any diseases (comma-separated)", "None")
-    allergies = st.text_area("List any allergies (comma-separated)", "Peanuts")
+    diseases = st.multiselect("List any diseases", ["None", "Diabetes", "Hypertension", "Celiac Disease", "Food Allergies"], default=["None"])
+    allergies = st.multiselect("List any allergies", ["None", "Peanuts", "Shellfish", "Eggs", "Milk"], default=["None"])
     preferred_food = st.selectbox("Preferred Food", ["Burmese", "Thiland", "Chinese", "Western", "Japanese", "Korean", "Indian", "Vietnamese", "Indonesian", "Malay", "Filipino", "Mexican", "French", "Other"])
     food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym Rat","High-Calorie", "High-Fibre", "Low-sugar", "High-Protein", "Balanced","Other"])
 
@@ -111,8 +111,8 @@ if functionality_choice == "Generate Meal Plan":
         "weight": {weight},
         "height": {height},
         "age": {age},
-        "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
-        "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
+        "diseases": {diseases},
+        "allergies": {allergies},
         "gender": "{gender}",
         "exercise": "{exercise}",
         "preferred": "{preferred_food}",
