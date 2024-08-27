@@ -4,8 +4,7 @@ import openai
 import os
 import json
 import requests
-from DualModelApp.components import food_suggestions
-from components import openAIChat
+from components import chat_bots, image_searchings, food_suggestions
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -184,7 +183,7 @@ elif functionality_choice == "Chat about Food and Nutrition":
                 if model_choice == "Gemini (Google)":
                     response = "Chat with Gemini (Google) is not available because the Chat API is unusable when using Google OAuth2.0."
                 else:
-                    response = openAIChat.generate_response(user_input)
+                    response = chat_bots.generate_response(user_input)
 
             # Append AI response to chat history
             st.session_state.chat_history.append({"role": "assistant", "message": response})

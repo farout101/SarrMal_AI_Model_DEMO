@@ -12,7 +12,7 @@ openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):
-    return food_suggestions.generate_gemini_v3(prompt)
+    return food_suggestions.generate_gemini(prompt)
 
 # Function to generate a food suggestion using OpenAI model
 def generate_food_suggestion_openai(prompt):
