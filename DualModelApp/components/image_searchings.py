@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
+API_KEY = os.environ.get("OAUTH_API")
+SEARCH_ENGINE_ID = os.environ.get("SEARCH_ENGINE_ID")
 
 def fetch_unsplash(food_name):
     url = f"https://api.unsplash.com/search/photos?page=1&query={food_name} food&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
@@ -31,9 +33,6 @@ def fetch_google(search_query):
     Returns:
     str: The link to the first image result or a message if no results are found.
     """
-    API_KEY = os.environ.get("OAUTH_API")
-    SEARCH_ENGINE_ID = os.environ.get("SEARCH_ENGINE_ID")
-
     url = "https://www.googleapis.com/customsearch/v1"
 
     params = {

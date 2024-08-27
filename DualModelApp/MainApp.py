@@ -4,7 +4,7 @@ import openai
 import os
 import json
 import requests
-from components import chat_bots, image_searchings, food_suggestions
+from components import chat_bots, food_suggestions
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,7 +16,7 @@ openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):
     try:
-        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v2-tk4jopaubsqf')
+        model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v1-uss801z982xp')
         result = model.generate_content(prompt)
         response = json.loads(result.text)
         return response
@@ -31,7 +31,7 @@ def generate_food_suggestion_gemini(prompt):
 
 # Function to generate a food suggestion using OpenAI model
 def generate_food_suggestion_openai(prompt):
-    return food_suggestions.generate_food_suggestion_openai(prompt)
+    return food_suggestions.generate_gemini(prompt)
 
 # Function to fetch an image from Unsplash
 def fetch_food_image(food_name):
@@ -183,7 +183,7 @@ elif functionality_choice == "Chat about Food and Nutrition":
                 if model_choice == "Gemini (Google)":
                     response = "Chat with Gemini (Google) is not available because the Chat API is unusable when using Google OAuth2.0."
                 else:
-                    response = chat_bots.generate_response(user_input)
+                    response = chat_bots.openai_chat(user_input)
 
             # Append AI response to chat history
             st.session_state.chat_history.append({"role": "assistant", "message": response})

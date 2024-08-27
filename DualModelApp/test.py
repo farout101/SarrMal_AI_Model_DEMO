@@ -4,6 +4,7 @@ import openai
 import os
 from components import chat_bots, image_searchings, food_suggestions
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -12,7 +13,7 @@ openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 
 # Function to generate a food suggestion using Gemini model
 def generate_food_suggestion_gemini(prompt):
-    return food_suggestions.generate_gemini(prompt)
+    return food_suggestions.generate_gemini_v3(prompt)
 
 # Function to generate a food suggestion using OpenAI model
 def generate_food_suggestion_openai(prompt):
@@ -20,7 +21,7 @@ def generate_food_suggestion_openai(prompt):
 
 # Function to fetch an image from Unsplash
 def fetch_food_image(food_name):
-    return image_searchings.fetch_google(food_name)
+    return image_searchings.fetch_unsplash(food_name)
 
 # Function to display the meal plan
 def display_meal_plan(response):
@@ -39,12 +40,14 @@ def display_meal_plan(response):
                 st.write(f"- Calories: {main_dish.get('calories')} kcal")
                 st.write(f"- Category: {main_dish.get('category')}")
                 
-                if model_choice == "OpenAI (GPT-4)":
-                    # Ingredients are likely a list in OpenAI model
-                    ingredients = ', '.join(main_dish.get('ingredients', []))
-                else:
-                    # Ingredients might be a string in Google model
-                    ingredients = main_dish.get('ingredients', '')
+                ingredients = ', '.join(main_dish.get('ingredients', []))
+                
+                # if model_choice == "OpenAI (GPT-4)":
+                #     # Ingredients are likely a list in OpenAI model
+                #     ingredients = ', '.join(main_dish.get('ingredients', []))
+                # else:
+                #     # Ingredients might be a string in Google model
+                #     ingredients = main_dish.get('ingredients', '')
 
                 # Display the ingredients as a comma-separated string
                 st.write(f"- Ingredients: {ingredients}")
@@ -60,12 +63,14 @@ def display_meal_plan(response):
                 st.write(f"- Calories: {side_dish.get('calories')} kcal")
                 st.write(f"- Category: {side_dish.get('category')}")
                 
-                if model_choice == "OpenAI (GPT-4)":
-                    # Ingredients are likely a list in OpenAI model
-                    ingredients = ', '.join(side_dish.get('ingredients', []))
-                else:
-                    # Ingredients might be a string in Google model
-                    ingredients = side_dish.get('ingredients', '')
+                ingredients = ', '.join(main_dish.get('ingredients', []))
+                
+                # if model_choice == "OpenAI (GPT-4)":
+                #     # Ingredients are likely a list in OpenAI model
+                #     ingredients = ', '.join(side_dish.get('ingredients', []))
+                # else:
+                #     # Ingredients might be a string in Google model
+                #     ingredients = side_dish.get('ingredients', '')
 
                 # Display the ingredients as a comma-separated string
                 st.write(f"- Ingredients: {ingredients}")
@@ -102,18 +107,6 @@ if functionality_choice == "Generate Meal Plan":
     food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym Rat","High-Calorie", "High-Fibre", "Low-sugar", "High-Protein", "Balanced","Other"])
 
     # Generate the prompt based on user input
-    # prompt = f"""{{
-    #     "weight": {weight},
-    #     "height": {height},
-    #     "age": {age},
-    #     "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
-    #     "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
-    #     "gender": "{gender}",
-    #     "exercise": "{exercise}",
-    #     "preferred": "{preferred_food}",
-    #     "food-type": "{food_type}"
-    # }}"""
-
     prompt = f"""{{
         "weight": {weight},
         "height": {height},
@@ -122,7 +115,19 @@ if functionality_choice == "Generate Meal Plan":
         "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
         "gender": "{gender}",
         "exercise": "{exercise}",
+        "preferred": "{preferred_food}",
+        "food-type": "{food_type}"
     }}"""
+
+    # prompt = f"""{{
+    #     "weight": {weight},
+    #     "height": {height},
+    #     "age": {age},
+    #     "diseases": [{', '.join([f'"{disease.strip()}"' for disease in diseases.split(',')])}],
+    #     "allergies": [{', '.join([f'"{allergy.strip()}"' for allergy in allergies.split(',')])}],
+    #     "gender": "{gender}",
+    #     "exercise": "{exercise}",
+    # }}"""
 
     st.write("### Generated Prompt")
     st.code(prompt)
