@@ -213,8 +213,8 @@ if functionality_choice == "Generate Meal Plan":
     exercise = st.selectbox("Exercise Level", ["None", "Light", "Moderate", "Intense"])
     diseases = st.multiselect("List any diseases", ["None", "Diabetes", "Hypertension", "Celiac Disease", "Food Allergies"], default=["None"])
     allergies = st.multiselect("List any allergies", ["None", "Peanuts", "Shellfish", "Eggs", "Milk"], default=["None"])
-    preferred_food = st.selectbox("Preferred Food", ["Burmese", "Thiland", "Chinese", "Western", "Japanese", "Korean", "Indian", "Vietnamese", "Indonesian", "Malay", "Filipino", "Mexican", "French", "Other"])
-    food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym Rat","High-Calorie", "High-Fibre", "Low-sugar", "High-Protein", "Balanced","Other"])
+    preferred_food = st.selectbox("Preferred Food", ["Burmese", "Thiland", "Chinese", "Western", "Japanese", "Korean", "Indian", "Other"])
+    food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym-Rat","High-Calorie", "High-Fibre", "Low-Sugar", "High-Protein", "Balanced","Other"])
 
     # Generate the prompt based on user input
     prompt = f"""{{
