@@ -37,16 +37,16 @@ def load_image(url):
         
         # Check if the content is an image
         if 'image' not in content_type:
-            st.error("The URL does not point to an image.")
+            st.warning("⚠️ The URL does not point to a valid image.")
             return None
         
         img = Image.open(BytesIO(response.content))
         return img
     except requests.exceptions.RequestException as e:
-        st.error(f"Failed to retrieve image: {e}")
+        st.warning(f"😔 Oops! Failed to retrieve the web image.")
         return None
     except IOError as e:
-        st.error(f"Failed to open image: {e}")
+        st.warning(f"❌ Sorry, we couldn't open the image.")
         return None
 
 def resize_to_square(image, size=(512, 400)):
@@ -127,8 +127,12 @@ def display_meal_plan(response):
                     if image_url:
                         # st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
                         image = load_image(image_url)
-                        square_img = resize_to_square(image) 
-                        st.image(square_img, caption=main_dish.get('name'), use_column_width=True)
+                        if image:
+                            square_img = resize_to_square(image)
+                            st.image(square_img, caption=main_dish.get('name'), use_column_width=True)
+                        # else:
+                        #     st.write("🚫 Oops! No image found for this food.")
+                        
                          
                     st.write(f"- Calories: {main_dish.get('calories')} kcal")
                     st.write(f"- Category: {main_dish.get('category')}")
@@ -147,11 +151,14 @@ def display_meal_plan(response):
                     image_url = fetch_food_image(side_dish.get('name'))
                                         
                     if image_url:
-                        # st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
+                        # st.image(image_url, caption=side_dish.get('name'), use_column_width=True)
                         image = load_image(image_url)
-                        square_img = resize_to_square(image) 
-                        st.image(square_img, caption=main_dish.get('name'), use_column_width=True)
-                         
+                        if image:
+                            square_img = resize_to_square(image)
+                            st.image(square_img, caption=side_dish.get('name'), use_column_width=True)
+                        # else:
+                        #     st.write("🚫 Oops! No image found for this food.")
+                            
                     st.write(f"- Calories: {side_dish.get('calories')} kcal")
                     st.write(f"- Category: {side_dish.get('category')}")
                     
