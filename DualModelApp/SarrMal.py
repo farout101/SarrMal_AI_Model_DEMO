@@ -52,62 +52,6 @@ def load_image(url):
 def resize_to_square(image, size=(512, 400)):
     return ImageOps.fit(image, size, Image.Resampling.LANCZOS)
 
-# Function to display the meal plan
-# def display_meal_plan(response):
-#     if response:
-#         st.subheader("Meal Plan")
-#         for meal_time, meal_info in response['response'].items():
-#             st.write(f"### {meal_time.capitalize()}")
-#             main_dish = meal_info.get("main_dish", {})
-#             side_dish = meal_info.get("side_dish", {})
-
-#             if main_dish:
-#                 st.write(f"**Main Dish:** {main_dish.get('name')}")
-#                 image_url = fetch_food_image(main_dish.get('name'))
-#                 if image_url:
-#                     st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
-#                 st.write(f"- Calories: {main_dish.get('calories')} kcal")
-#                 st.write(f"- Category: {main_dish.get('category')}")
-                
-#                 ingredients = ', '.join(main_dish.get('ingredients', []))
-                
-#                 # if model_choice == "OpenAI (GPT-4)":
-#                 #     # Ingredients are likely a list in OpenAI model
-#                 #     ingredients = ', '.join(main_dish.get('ingredients', []))
-#                 # else:
-#                 #     # Ingredients might be a string in Google model
-#                 #     ingredients = main_dish.get('ingredients', '')
-
-#                 # Display the ingredients as a comma-separated string
-#                 st.write(f"- Ingredients: {ingredients}")
-                    
-#                 st.write(f"- How to Cook: {main_dish.get('how_to_cook')}")
-#                 st.write(f"- Meal Time: {main_dish.get('meal_time')}")
-
-#             if side_dish:
-#                 st.write(f"**Side Dish:** {side_dish.get('name')}")
-#                 image_url = fetch_food_image(side_dish.get('name'))
-#                 if image_url:
-#                     st.image(image_url, caption=side_dish.get('name'), use_column_width=True)
-#                 st.write(f"- Calories: {side_dish.get('calories')} kcal")
-#                 st.write(f"- Category: {side_dish.get('category')}")
-                
-#                 ingredients = ', '.join(main_dish.get('ingredients', []))
-                
-#                 # if model_choice == "OpenAI (GPT-4)":
-#                 #     # Ingredients are likely a list in OpenAI model
-#                 #     ingredients = ', '.join(side_dish.get('ingredients', []))
-#                 # else:
-#                 #     # Ingredients might be a string in Google model
-#                 #     ingredients = side_dish.get('ingredients', '')
-
-#                 # Display the ingredients as a comma-separated string
-#                 st.write(f"- Ingredients: {ingredients}")
-                    
-#                 st.write(f"- How to Cook: {side_dish.get('how_to_cook')}")
-#                 st.write(f"- Meal Time: {side_dish.get('meal_time')}")
-#             st.write("\n")
-
 def display_meal_plan(response):
     if response:
         st.subheader("Meal Plan")
@@ -230,7 +174,7 @@ if functionality_choice == "Generate Meal Plan":
     }}"""
 
     #For Model1 and Model2
-
+    
     # prompt = f"""{{
     #     "weight": {weight},
     #     "height": {height},
