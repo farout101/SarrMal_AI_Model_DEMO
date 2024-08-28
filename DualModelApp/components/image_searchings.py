@@ -23,12 +23,11 @@ SEARCH_ENGINE_ID = os.environ.get("SEARCH_ENGINE_ID")
 #     else:
 #         st.warning(f"😥 Error fetching image: {response.status_code}")
 #         return None
-       
-       
+
 #Fail Save Access Key     
 def fetch_unsplash(food_name):
     def get_image(api_key):
-        url = f"https://api.unsplash.com/search/photos?page=1&query={food_name} food&client_id={api_key}&per_page=1"
+        url = f"https://api.unsplash.com/search/photos?page=1&query={food_name}%20food&client_id={api_key}&per_page=1"
         response = requests.get(url)
         
         if response.status_code == 200:

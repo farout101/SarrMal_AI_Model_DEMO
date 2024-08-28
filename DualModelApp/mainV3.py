@@ -175,7 +175,6 @@ def display_meal_plan(response):
 st.title("AI-Powered Food Suggestion System Demo")
 st.write("Get personalized food suggestions or chat about nutrition!")
 
-
 # Sidebar for selecting functionality
 functionality_choice = st.sidebar.selectbox(
     "Choose Functionality",
@@ -183,18 +182,23 @@ functionality_choice = st.sidebar.selectbox(
 )
 
 # Toggle for selecting the AI model
-model_choice = st.sidebar.radio("Choose the AI model", options=["Gemini (Google)", "OpenAI (GPT-4)"])
-st.sidebar.write("Please note that the OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate. Additionally, the format for ingredients may vary slightly between models.")
+model_choice = st.sidebar.radio("Choose the AI model", options=["SarrMal (Tuning)", "OpenAI (GPT-4)"])
+st.sidebar.write("🌟 Please note that the OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate.")
+st.sidebar.write("🌟 Additionally, the format for ingredients may vary slightly between models.")
 if st.sidebar.radio("Choose Image Generator", options=["Unsplash", "Google"]) == "Google":
     image_engine  = "Google"
     # st.write("Google Image Searching is Active.")
 else:
     image_engine = "Unsplash"
     # st.write("Unsplash Image Searching is Active.")
-st.sidebar.write("Please note that the Google Image Generator is currently in beta and may occasionally produce results that are not entirely accurate.")
+st.sidebar.write("📓 Please note that the Google Image Generator is currently in beta and may occasionally produce results that are not entirely accurate.")
 
 
 if functionality_choice == "Generate Meal Plan":
+    if model_choice == "SarrMal (Tuning)":
+        st.write("SarrMal (Tuning) model is Active.")
+    else:
+        st.write("OpenAI (GPT-4) model is Active.")
     # User input fields for generating the food suggestion prompt
     if image_engine == "Google":
         st.write("Google Image Searching is Active.")
@@ -237,13 +241,13 @@ if functionality_choice == "Generate Meal Plan":
     #     "exercise": "{exercise}",
     # }}"""
 
-    st.write("### Generated Prompt")
+    st.write("### Your Preferences and Details")
     st.code(prompt)
 
     # Button to generate and display the food suggestion
     if st.button("Get Food Suggestion"):
         with st.spinner("Generating food suggestion..."):
-            if model_choice == "Gemini (Google)":
+            if model_choice == "SarrMal (Tuning)":
                 response = generate_food_suggestion_gemini(prompt)
             else:
                 response = generate_food_suggestion_openai(prompt)
@@ -254,8 +258,8 @@ if functionality_choice == "Generate Meal Plan":
                 st.warning("No response generated. Please check your input or try again later.")
 
 elif functionality_choice == "Chat about Food and Nutrition":
-    if model_choice == "Gemini (Google)":
-        st.write("Gemini (Google) is Active.")
+    if model_choice == "SarrMal (Tuning)":
+        st.write("SarrMal (Tuning) is Active.")
     else:
         st.write("OpenAI (GPT-4) is Active.")
 
@@ -282,10 +286,10 @@ elif functionality_choice == "Chat about Food and Nutrition":
 
             # Generate response
             with st.spinner("Generating response..."):
-                if model_choice == "Gemini (Google)":
+                if model_choice == "SarrMal (Tuning)":
                     response = chat_bots.gemini_chat_oauth(user_input)
                 else:
-                    response = "The OpenAI model is currently in beta and may occasionally produce results that are not entirely accurate. Additionally, the format for ingredients may vary slightly between models."
+                    response = chat_bots.openai_chat(user_input)
 
             # Append AI response to chat history
             st.session_state.chat_history.append({"role": "assistant", "message": response})

@@ -120,7 +120,7 @@ def generate_gemini(prompt):
         return None
     except Exception as e:
         st.error("😥 An unexpected error occurred. Please try again.")
-        st.write(e)
+        # st.write(e)
         return None
     
 def generate_gemini_v3(prompt):
@@ -137,7 +137,7 @@ def generate_gemini_v3(prompt):
         return None
     except Exception as e:
         st.error("😥 An unexpected error occurred. Please try again.")
-        st.write(e)
+        # st.write(e)
         return None
 
 #For testing the models    
