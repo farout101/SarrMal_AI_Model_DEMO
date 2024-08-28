@@ -98,12 +98,12 @@ def generate_openai(prompt):
         response_json = json.loads(completion_content)
         return response_json
     except json.JSONDecodeError as json_err:
-        st.error("There was an error processing the response. Please try again later.")
-        st.write(json_err)
+        st.error("😥 There was an error processing the response. Please try again later.")
+        # st.write(json_err)
         return None
     except Exception as e:
-        st.error("An unexpected error occurred. Please try again.")
-        st.write(e)
+        st.error("😥 An unexpected error occurred. Please try again.")
+        # st.write(e)
         return None    
     
 
@@ -114,13 +114,12 @@ def generate_gemini(prompt):
         response = json.loads(result.text)
         return response
     except json.JSONDecodeError as json_err:
-        # st.error("There was an error processing the response. Please try again later.")
-        # st.write(json_err)
-        print("There was an error processing the response. Please try again later.")
-        print(json_err)
+        st.error("😥 There was an error processing the response. Please try again later.")
+        # print("There was an error processing the response. Please try again later.")
+        # print(json_err)
         return None
     except Exception as e:
-        st.error("An unexpected error occurred. Please try again.")
+        st.error("😥 An unexpected error occurred. Please try again.")
         st.write(e)
         return None
     
@@ -132,11 +131,12 @@ def generate_gemini_v3(prompt):
         data = json.loads(cleaned_result)
         return data
     except json.JSONDecodeError as json_err:
-        print("There was an error processing the response. Please try again later.")
-        print(json_err)
+        st.error("😥 There was an error processing the response. Please try again later.")
+        # print("There was an error processing the response. Please try again later.")
+        # print(json_err)
         return None
     except Exception as e:
-        st.error("An unexpected error occurred. Please try again.")
+        st.error("😥 An unexpected error occurred. Please try again.")
         st.write(e)
         return None
 

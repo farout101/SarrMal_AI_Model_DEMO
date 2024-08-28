@@ -23,18 +23,18 @@ def gemini_chat_api(prompt):
         return generated_text
     except genai.exceptions.APIError as api_err:
         # Specific handling for API errors
-        st.error("Oops! There was a problem connecting to the AI service. Please try again later.")
+        st.error("😔 Oops! There was a problem connecting to the AI service. Please try again later.")
         # Log the error if needed for debugging (not shown to the user)
         st.write(api_err)
         return None
     except ValueError as val_err:
         # Handle issues related to invalid values, etc.
-        st.error("It seems there was an issue with the input provided. Please check and try again.")
+        st.error("😥 It seems there was an issue with the input provided. Please check and try again.")
         st.write(val_err)
         return None
     except Exception as e:
         # Generic error handling
-        st.error("Something went wrong. Please try again.")
+        st.error("😥 Something went wrong. Please try again.")
         st.write(e)
         return None
 
@@ -44,11 +44,11 @@ def gemini_chat_oauth(prompt):
         result = model.generate_content(prompt)
         return result.text
     except json.JSONDecodeError as json_err:
-        st.error("There was an error processing the response. Please try again later.")
+        st.error("😥 There was an error processing the response. Please try again later.")
         st.write(json_err)
         return None
     except Exception as e:
-        st.error("An unexpected error occurred. Please try again.")
+        st.error("😥 An unexpected error occurred. Please try again.")
         st.write(e)
         return None
 
