@@ -5,6 +5,9 @@ import os
 from components import chat_bots, image_searchings, food_suggestions
 from dotenv import load_dotenv
 import json
+import requests
+from PIL import Image, ImageOps
+from io import BytesIO
 
 load_dotenv()
 
@@ -26,61 +29,140 @@ def fetch_food_image(food_name):
     else:
         return image_searchings.fetch_unsplash(food_name)
 
+def load_image(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Check if the request was successful
+        content_type = response.headers['Content-Type']
+        
+        # Check if the content is an image
+        if 'image' not in content_type:
+            st.error("The URL does not point to an image.")
+            return None
+        
+        img = Image.open(BytesIO(response.content))
+        return img
+    except requests.exceptions.RequestException as e:
+        st.error(f"Failed to retrieve image: {e}")
+        return None
+    except IOError as e:
+        st.error(f"Failed to open image: {e}")
+        return None
+
+def resize_to_square(image, size=(512, 400)):
+    return ImageOps.fit(image, size, Image.Resampling.LANCZOS)
+
 # Function to display the meal plan
+# def display_meal_plan(response):
+#     if response:
+#         st.subheader("Meal Plan")
+#         for meal_time, meal_info in response['response'].items():
+#             st.write(f"### {meal_time.capitalize()}")
+#             main_dish = meal_info.get("main_dish", {})
+#             side_dish = meal_info.get("side_dish", {})
+
+#             if main_dish:
+#                 st.write(f"**Main Dish:** {main_dish.get('name')}")
+#                 image_url = fetch_food_image(main_dish.get('name'))
+#                 if image_url:
+#                     st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
+#                 st.write(f"- Calories: {main_dish.get('calories')} kcal")
+#                 st.write(f"- Category: {main_dish.get('category')}")
+                
+#                 ingredients = ', '.join(main_dish.get('ingredients', []))
+                
+#                 # if model_choice == "OpenAI (GPT-4)":
+#                 #     # Ingredients are likely a list in OpenAI model
+#                 #     ingredients = ', '.join(main_dish.get('ingredients', []))
+#                 # else:
+#                 #     # Ingredients might be a string in Google model
+#                 #     ingredients = main_dish.get('ingredients', '')
+
+#                 # Display the ingredients as a comma-separated string
+#                 st.write(f"- Ingredients: {ingredients}")
+                    
+#                 st.write(f"- How to Cook: {main_dish.get('how_to_cook')}")
+#                 st.write(f"- Meal Time: {main_dish.get('meal_time')}")
+
+#             if side_dish:
+#                 st.write(f"**Side Dish:** {side_dish.get('name')}")
+#                 image_url = fetch_food_image(side_dish.get('name'))
+#                 if image_url:
+#                     st.image(image_url, caption=side_dish.get('name'), use_column_width=True)
+#                 st.write(f"- Calories: {side_dish.get('calories')} kcal")
+#                 st.write(f"- Category: {side_dish.get('category')}")
+                
+#                 ingredients = ', '.join(main_dish.get('ingredients', []))
+                
+#                 # if model_choice == "OpenAI (GPT-4)":
+#                 #     # Ingredients are likely a list in OpenAI model
+#                 #     ingredients = ', '.join(side_dish.get('ingredients', []))
+#                 # else:
+#                 #     # Ingredients might be a string in Google model
+#                 #     ingredients = side_dish.get('ingredients', '')
+
+#                 # Display the ingredients as a comma-separated string
+#                 st.write(f"- Ingredients: {ingredients}")
+                    
+#                 st.write(f"- How to Cook: {side_dish.get('how_to_cook')}")
+#                 st.write(f"- Meal Time: {side_dish.get('meal_time')}")
+#             st.write("\n")
+
 def display_meal_plan(response):
     if response:
         st.subheader("Meal Plan")
         for meal_time, meal_info in response['response'].items():
             st.write(f"### {meal_time.capitalize()}")
-            main_dish = meal_info.get("main_dish", {})
-            side_dish = meal_info.get("side_dish", {})
+            
+            # Create two columns for main dish and side dish
+            col1, col2 = st.columns(2)
 
-            if main_dish:
-                st.write(f"**Main Dish:** {main_dish.get('name')}")
-                image_url = fetch_food_image(main_dish.get('name'))
-                if image_url:
-                    st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
-                st.write(f"- Calories: {main_dish.get('calories')} kcal")
-                st.write(f"- Category: {main_dish.get('category')}")
-                
-                ingredients = ', '.join(main_dish.get('ingredients', []))
-                
-                # if model_choice == "OpenAI (GPT-4)":
-                #     # Ingredients are likely a list in OpenAI model
-                #     ingredients = ', '.join(main_dish.get('ingredients', []))
-                # else:
-                #     # Ingredients might be a string in Google model
-                #     ingredients = main_dish.get('ingredients', '')
-
-                # Display the ingredients as a comma-separated string
-                st.write(f"- Ingredients: {ingredients}")
+            # Display main dish in the first column
+            with col1:
+                main_dish = meal_info.get("main_dish", {})
+                if main_dish:
+                    st.write(f"**Main Dish:** {main_dish.get('name')}")
+                    image_url = fetch_food_image(main_dish.get('name'))
                     
-                st.write(f"- How to Cook: {main_dish.get('how_to_cook')}")
-                st.write(f"- Meal Time: {main_dish.get('meal_time')}")
-
-            if side_dish:
-                st.write(f"**Side Dish:** {side_dish.get('name')}")
-                image_url = fetch_food_image(side_dish.get('name'))
-                if image_url:
-                    st.image(image_url, caption=side_dish.get('name'), use_column_width=True)
-                st.write(f"- Calories: {side_dish.get('calories')} kcal")
-                st.write(f"- Category: {side_dish.get('category')}")
-                
-                ingredients = ', '.join(main_dish.get('ingredients', []))
-                
-                # if model_choice == "OpenAI (GPT-4)":
-                #     # Ingredients are likely a list in OpenAI model
-                #     ingredients = ', '.join(side_dish.get('ingredients', []))
-                # else:
-                #     # Ingredients might be a string in Google model
-                #     ingredients = side_dish.get('ingredients', '')
-
-                # Display the ingredients as a comma-separated string
-                st.write(f"- Ingredients: {ingredients}")
+                    if image_url:
+                        # st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
+                        image = load_image(image_url)
+                        square_img = resize_to_square(image) 
+                        st.image(square_img, caption=main_dish.get('name'), use_column_width=True)
+                         
+                    st.write(f"- Calories: {main_dish.get('calories')} kcal")
+                    st.write(f"- Category: {main_dish.get('category')}")
                     
-                st.write(f"- How to Cook: {side_dish.get('how_to_cook')}")
-                st.write(f"- Meal Time: {side_dish.get('meal_time')}")
+                    ingredients = ', '.join(main_dish.get('ingredients', []))
+                    st.write(f"- Ingredients: {ingredients}")
+                    
+                    st.write(f"- How to Cook: {main_dish.get('how_to_cook')}")
+                    st.write(f"- Meal Time: {main_dish.get('meal_time')}")
+            
+            # Display side dish in the second column
+            with col2:
+                side_dish = meal_info.get("side_dish", {})
+                if side_dish:
+                    st.write(f"**Side Dish:** {side_dish.get('name')}")
+                    image_url = fetch_food_image(side_dish.get('name'))
+                                        
+                    if image_url:
+                        # st.image(image_url, caption=main_dish.get('name'), use_column_width=True)
+                        image = load_image(image_url)
+                        square_img = resize_to_square(image) 
+                        st.image(square_img, caption=main_dish.get('name'), use_column_width=True)
+                         
+                    st.write(f"- Calories: {side_dish.get('calories')} kcal")
+                    st.write(f"- Category: {side_dish.get('category')}")
+                    
+                    ingredients = ', '.join(side_dish.get('ingredients', []))
+                    st.write(f"- Ingredients: {ingredients}")
+                    
+                    st.write(f"- How to Cook: {side_dish.get('how_to_cook')}")
+                    st.write(f"- Meal Time: {side_dish.get('meal_time')}")
+            
             st.write("\n")
+
 
 # Streamlit app layout
 st.title("AI-Powered Food Suggestion System Demo")
