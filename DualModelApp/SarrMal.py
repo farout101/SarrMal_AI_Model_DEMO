@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import openai
 import os
-from components import chat_bots, image_searchings, food_suggestions
+from components import chat_bots, image_searchings, food_suggestions, image_detection
 from dotenv import load_dotenv
 import json
 import requests
@@ -265,8 +265,17 @@ elif functionality_choice == "Search your own Food":
         uploaded_image = st.file_uploader("Upload an image of the food item", type=["jpg", "jpeg", "png"])
     else:
         uploaded_image = st.camera_input("Take a picture of the food item")
-
+    
     if uploaded_image is not None:
-        # Open and display the image using PIL
-        image = Image.open(uploaded_image)
-        st.image(image, caption='Uploaded Food Image', use_column_width=True)
+        # Display the uploaded image
+        st.image(uploaded_image, caption='Uploaded Image.', use_column_width=True)
+        
+        # Encode and send the image to OpenAI API
+        base64_image = image_detection.encode_image(uploaded_image)
+        food_name = image_detection.get_food_name(base64_image)
+        
+        # Display the result
+        if food_name:
+            st.write(f"The name of the food is: **{food_name}**")
+        else:
+            st.write("This is not recognized as a food item.")
