@@ -256,7 +256,8 @@ elif functionality_choice == "Chat about Food and Nutrition":
         
 elif functionality_choice == "Search your own Food":
     st.write("Search for any food item!")
-    st.write("Only SarrMal (Tuning) model is available for this functionality.")
+    st.write("Image detection : OpenAI (GPT-4) is Active.(Fixed for this functionality)!")
+    st.write("Food suggestion : SarrMal (Tuning) is Active.(Fixed for this functionality)!")
     
     # Option for user to upload an image or use the camera
     upload_option = st.radio("Choose image source:", ("Upload from device", "Use camera"))
