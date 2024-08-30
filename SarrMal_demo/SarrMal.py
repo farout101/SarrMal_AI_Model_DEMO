@@ -206,8 +206,7 @@ if functionality_choice == "Generate Meal Plan":
         sugar_status = f"{food_type} (Moderate sugar intake)"
     else:
         sugar_status = f"{food_type} (Low sugar option)"
-        
-    
+          
     prompt = f"""{{
         "weight": {weight},
         "height": {height},
@@ -219,7 +218,6 @@ if functionality_choice == "Generate Meal Plan":
         "preferred": "{preferred_food}",
         "food-type": "{sugar_status}"
     }}"""
-
 
     #For Model1 and Model2    
     # prompt = f"""{{

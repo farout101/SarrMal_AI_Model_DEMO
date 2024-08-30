@@ -27,26 +27,32 @@ This will start the application, and you can interact with the AI models through
 
 ## The AI Models
 
-The AI models integrated into this demo app are difficult to access directly because they are secured with Google OAuth. This was done to ensure that only authorized users can interact with the models, maintaining data security and integrity.
+The AI models integrated into this demo are hosted and managed via Google Cloud. Due to this, direct access to the models is restricted, and only authorized users can utilize them. The models are secured with Google OAuth, ensuring that only those with the necessary credentials can execute and interact with the AI.
+
+This approach is essential for maintaining the security and privacy of the data processed by the AI models. It also allows us to control and monitor who can access the models, preventing unauthorized usage.
+
+Since the models are deployed on Google Cloud, users who wish to interact with them must have the appropriate OAuth credentials. Without these credentials, it won't be possible to access the full capabilities of the models.
 
 ## Displaying Images
 
-Initially, we used the Unsplash API for image searching, but due to its inaccuracy, we switched to the Google Custom Search API. However, the Google API has a limited number of daily requests, so we loop the API through multiple Google accounts to bypass this limitation.
+For image searching, we initially used the Unsplash API; however, it didn't meet our accuracy requirements. As a result, we transitioned to the Google Custom Search API. This API provided more reliable results, but it came with a limitation: a restricted number of daily requests.
+
+To work around this, we implemented a system that loops the API requests through multiple Google accounts. This approach allows us to handle a larger volume of requests while staying within the API's usage limits.
 
 ## About the Chat Bot
 
-The final models used in this SarrMal app include:
+The final models integrated into the SarrMal app are:
 
-- **Food_Suggestion_model_v3**: This model is responsible for generating food suggestions based on user input.
-- **FINAL_FOOD_ANALYSIS_V1**: Used in the transition between image and text. We leveraged OpenAI's vision model via the OpenAI API for image detection, as the Gemini model does not allow tuning for image models.
+- **Food_Suggestion_model_v3**: Responsible for generating food suggestions tailored to the user's input.
+- **FINAL_FOOD_ANALYSIS_V1**: This model handles the transition from image to text. We utilized OpenAI's vision model through the OpenAI API to detect and analyze images, as the Gemini model does not support tuning for image-related tasks.
 
-In case the image detection fails, we implemented a "fail-safe plan" that takes text input (food name) directly.
+In scenarios where image detection fails or is unavailable, we've implemented a "fail-safe plan" that accepts direct text input, such as the food name, ensuring the system remains operational.
 
-We decided not to train our AI models from scratch due to the lack of comprehensive datasets related to our focus area. Even if suitable datasets were available, the limited time frame for AI model development made it impractical. Instead, we opted to tune pre-existing multi-modal models.
+We chose not to train our AI models from scratch due to several constraints. Firstly, there is a lack of comprehensive datasets specifically tailored to our focus area. Secondly, even with a suitable dataset, the time available for AI model development was insufficient to achieve the desired level of accuracy. As a result, we opted to tune existing multi-modal models instead of building our own from the ground up.
 
 ## The Main Functionality of the Food Models
 
-The primary goal of our models is to detect users' health information and provide reliable meal plans, specifically targeting individuals with diabetes and hypertension.
+The primary goal of our AI models is to analyze the user's health information and provide personalized meal plans, particularly for individuals with diabetes and hypertension. These meal plans are designed to be reliable and tailored to the user's specific health needs.
 
 This repository contains only the stripped-down version of our SarrMal AI models. You can check the full API version [OneBitMyanmar/SarrMal_API](https://github.com/One-Bit-Myanmar/api-for-sarrmal-app).
 
