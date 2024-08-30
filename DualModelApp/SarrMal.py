@@ -260,12 +260,15 @@ elif functionality_choice == "Search your own Food":
     st.write("Food suggestion : SarrMal (Tuning) is Active.(Fixed for this functionality)!")
     
     # Option for user to upload an image or use the camera
-    upload_option = st.radio("Choose image source:", ("Upload from device", "Use camera"))
+    upload_option = st.radio("Choose image source:", ("Upload from device", "Use camera", "Use Text(If the image is not available)"))
     
     if upload_option == "Upload from device":
         uploaded_image = st.file_uploader("Upload an image of the food item", type=["jpg", "jpeg", "png"])
-    else:
+    elif upload_option == "Use camera":
         uploaded_image = st.camera_input("Take a picture of the food item")
+    else:
+        uploaded_image = None
+        food_name = st.text_input("Enter the name of the food item", "")
     
     if uploaded_image is not None:
         # Display the uploaded image
