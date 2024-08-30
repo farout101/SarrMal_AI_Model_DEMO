@@ -48,7 +48,7 @@ We decided not to train our AI models from scratch due to the lack of comprehens
 
 The primary goal of our models is to detect users' health information and provide reliable meal plans, specifically targeting individuals with diabetes and hypertension.
 
-This repository contains only the stripped-down version of our SarrMal AI models. You can check the full API version [here](https://github.com/One-Bit-Myanmar/api-for-sarrmal-app).
+This repository contains only the stripped-down version of our SarrMal AI models. You can check the full API version [OneBitMyanmar/SarrMal_API](https://github.com/One-Bit-Myanmar/api-for-sarrmal-app).
 
 ---
 
