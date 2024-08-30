@@ -8,11 +8,11 @@ To run the demo app, follow these instructions:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/One-Bit-Myanmar/api-for-sarrmal-app
+    https://github.com/farout101/SarrMal_AI_Model_DEMO.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd CHATBOT_WITH_STREAMLIT
+    cd SarrMal_AI_Model_DEMO
     ```
 3. Install the required packages:
     ```bash
@@ -20,7 +20,7 @@ To run the demo app, follow these instructions:
     ```
 4. Run the main app using Streamlit:
     ```bash
-    streamlit run SarrMal_demo/components/SarrMal.py
+    streamlit run SarrMal_demo/SarrMal.py
     ```
 
 This will start the application, and you can interact with the AI models through the Streamlit interface.
