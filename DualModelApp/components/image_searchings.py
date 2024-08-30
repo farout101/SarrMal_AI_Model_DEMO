@@ -51,12 +51,12 @@ def fetch_google(search_query):
     search_engine_id = os.environ.get("SEARCH_ENGINE_ID")
 
     api_keys = [
-        os.environ.get("OAUTH_API_6"),
-        os.environ.get("OAUTH_API_5"),
-        os.environ.get("OAUTH_API_4"),
-        os.environ.get("OAUTH_API_3"),
+        os.environ.get("OAUTH_API_1"),
         os.environ.get("OAUTH_API_2"),
-        os.environ.get("OAUTH_API_1")
+        os.environ.get("OAUTH_API_3"),
+        os.environ.get("OAUTH_API_4"),
+        os.environ.get("OAUTH_API_5"),
+        os.environ.get("OAUTH_API_6")
     ]
 
     for api_key in api_keys:
@@ -67,11 +67,12 @@ def fetch_google(search_query):
             'searchType': 'image'
         }
         response = requests.get(url, params=params)
+        # print(response)
+        # print(response.text)
         if response.status_code == 200:
             result = response.json()
             if 'items' in result:
                 return result['items'][0]['link']
             else:
                 return {"error": "didn't find image"}
-    
     return {"error": "something wrong with image searching server"}

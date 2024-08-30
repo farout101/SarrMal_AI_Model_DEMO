@@ -29,9 +29,33 @@ def fetch_food_image(food_name):
     else:
         return image_searchings.fetch_unsplash(food_name)
 
+# def load_image(url):
+#     try:
+#         response = requests.get(url)
+#         response.raise_for_status()  # Check if the request was successful
+#         content_type = response.headers['Content-Type']
+        
+#         # Check if the content is an image
+#         if 'image' not in content_type:
+#             st.warning("⚠️ The URL does not point to a valid image.")
+#             return None
+        
+#         img = Image.open(BytesIO(response.content))
+#         return img
+#     except requests.exceptions.RequestException as e:
+#         st.warning(f"😔 Oops! Failed to retrieve the web image.")
+#         return None
+#     except IOError as e:
+#         st.warning(f"❌ Sorry, we couldn't open the image.")
+#         return None
+
 def load_image(url):
     try:
-        response = requests.get(url)
+        # Set the User-Agent to Chrome
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.179 Safari/537.36'
+        }
+        response = requests.get(url, headers=headers)
         response.raise_for_status()  # Check if the request was successful
         content_type = response.headers['Content-Type']
         
@@ -43,10 +67,10 @@ def load_image(url):
         img = Image.open(BytesIO(response.content))
         return img
     except requests.exceptions.RequestException as e:
-        st.warning(f"😔 Oops! Failed to retrieve the web image.")
+        st.warning(f"😔 Oops! Failed to retrieve the web image. {e}")
         return None
     except IOError as e:
-        st.warning(f"❌ Sorry, we couldn't open the image.")
+        st.warning(f"❌ Sorry, we couldn't open the image. {e}")
         return None
 
 def resize_to_square(image, size=(512, 400)):
@@ -167,6 +191,7 @@ if functionality_choice == "Generate Meal Plan":
             "Other"
         ]
     )
+    # sugar_level = st.number_input("Sugar Level (mg/dL)", min_value=1, max_value=500, value=100)
     # Generate the prompt based on user input
     prompt = f"""{{
         "weight": {weight},
