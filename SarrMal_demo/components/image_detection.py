@@ -12,6 +12,7 @@ openai.api_key = os.environ.get("OPEN_AI_API_KEY")
 def encode_image(image):
     return base64.b64encode(image.read()).decode("utf-8")
 
+# Function to detect food image using OpenAI
 def get_food_name(base64_image):
     response = openai.ChatCompletion.create(
         model="gpt-4o",

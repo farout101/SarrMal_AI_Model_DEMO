@@ -1,3 +1,9 @@
+#----
+
+# This is the old version of our SarrMal Food Suggestion System Demo
+
+#----
+
 import streamlit as st
 import google.generativeai as genai
 import openai

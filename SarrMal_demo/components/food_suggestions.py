@@ -4,7 +4,8 @@ import streamlit as st
 import openai
 import google.generativeai as genai
 import os
-    
+        
+# This is the unused function to generate responses using openAI api
 def generate_openai(prompt):
     """
     Generates a food suggestion using the OpenAI GPT model.
@@ -107,6 +108,7 @@ def generate_openai(prompt):
         return None    
     
 
+# Food Suggestion AI model for SarrMal API (Version 1)
 def generate_gemini(prompt):
     try:
         model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v1-uss801z982xp')
@@ -123,6 +125,8 @@ def generate_gemini(prompt):
         # st.write(e)
         return None
     
+# The main difference between between Version 1 and 3 is the input format and the training data
+# Food Suggestion AI model for SarrMal API (Version 3, also the final version)
 def generate_gemini_v3(prompt):
     try:
         model = genai.GenerativeModel(model_name='tunedModels/food-suggestion-ai-v3-t2z0eh7qpaq8')
@@ -142,11 +146,10 @@ def generate_gemini_v3(prompt):
     
 def suggestion_from_image(prompt):
     try:
-        model = genai.GenerativeModel(model_name='tunedModels/for-food-image-to-text-v1-9kiq0o2clyrn')
+        model = genai.GenerativeModel(model_name='tunedModels/final-food-analysis-v1-kva230h5vrbk')
         result = model.generate_content(prompt)
-        # cleaned_result = result.text.strip("```json").strip("```")
-        # data = json.loads(cleaned_result)
-        return result.text
+        response = json.loads(result.text)
+        return response
     except json.JSONDecodeError as json_err:
         st.error("😥 There was an error processing the response. Please try again later.")
         # print("There was an error processing the response. Please try again later.")

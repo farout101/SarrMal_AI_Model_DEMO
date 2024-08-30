@@ -38,6 +38,7 @@ def gemini_chat_api(prompt):
         st.write(e)
         return None
 
+# This is the tuned Chatbot model for SarrMal API
 def gemini_chat_oauth(prompt):
     try:
         model = genai.GenerativeModel(model_name='tunedModels/food-chatbot-v2-471btbzagxuv')
@@ -52,10 +53,9 @@ def gemini_chat_oauth(prompt):
         st.write(e)
         return None
 
-# Set your OpenAI API key from environment variable
 openai.api_key = os.environ.get("OPEN_AI_API_KEY") 
 
-# Function to generate a response from OpenAI
+# This is the Raw OpenAI Chatbot model to test the responses
 def openai_chat(prompt):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",

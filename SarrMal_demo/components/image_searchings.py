@@ -9,7 +9,8 @@ load_dotenv()
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
 UNSPLASH_ACCESS_KEY_2 = os.environ.get("UNSPLASH_ACCESS_KEY_2")
 
-#Fail Save Access Key     
+# Function to fetch an image from Unsplash
+# Unsplash API not as stable as Google Custom Search API, Used only as a fail safe
 def fetch_unsplash(food_name):
     def get_image(api_key):
         url = f"https://api.unsplash.com/search/photos?page=1&query={food_name}%20food&client_id={api_key}&per_page=1"
@@ -37,6 +38,7 @@ def fetch_unsplash(food_name):
         st.warning("😥 Unable to fetch image with both API keys. Please try again later.")
         return None
 
+# The main image searching function used in our API
 def fetch_google(search_query):
     """
     Searches for an image using Google Custom Search API and returns the link to the first image result.
@@ -50,6 +52,7 @@ def fetch_google(search_query):
     url = "https://www.googleapis.com/customsearch/v1"
     search_engine_id = os.environ.get("SEARCH_ENGINE_ID")
 
+    # We looped through multiple API keys to increase the chances of getting a result, as the API has a daily limit of 100 requests, now we have 600 requests per day xD
     api_keys = [
         os.environ.get("OAUTH_API_1"),
         os.environ.get("OAUTH_API_2"),
