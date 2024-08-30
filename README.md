@@ -8,11 +8,11 @@ To run the demo app, follow these instructions:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/One-Bit-Myanmar/api-for-sarrmal-app
+    https://github.com/farout101/SarrMal_AI_Model_DEMO.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd CHATBOT_WITH_STREAMLIT
+    cd SarrMal_AI_Model_DEMO
     ```
 3. Install the required packages:
     ```bash
@@ -20,7 +20,7 @@ To run the demo app, follow these instructions:
     ```
 4. Run the main app using Streamlit:
     ```bash
-    streamlit run SarrMal_demo/components/SarrMal.py
+    streamlit run SarrMal_demo/SarrMal.py
     ```
 
 This will start the application, and you can interact with the AI models through the Streamlit interface.
@@ -55,7 +55,7 @@ This will start the application, and you can interact with the AI models through
 
 ## The AI Models
 
-The AI models integrated into this demo are hosted and managed via Google Cloud. Due to this, direct access to the models is restricted, and only authorized users can utilize them. The models are secured with Google OAuth, ensuring that only those with the necessary credentials can execute and interact with the AI.
+The AI models integrated into this demo are hosted and managed via Google Cloud. Due to this, direct access to the models is restricted, and only authorized users can utilize them. The models are secured with Google OAuth, ensuring that only those with the necessary credentials(SarrMal API) can execute and interact with the AI.
 
 This approach is essential for maintaining the security and privacy of the data processed by the AI models. It also allows us to control and monitor who can access the models, preventing unauthorized usage.
 
@@ -69,9 +69,9 @@ To work around this, we implemented a system that loops the API requests through
 
 ## About the Chat Bot
 
-The final models integrated into the SarrMal app are:
+Our final models integrated into the SarrMal app are:
 
-- **Food_Suggestion_model_v3**: Responsible for generating food suggestions tailored to the user's input.
+- **Food_Suggestion_model_v3**: Responsible for generating meal plans tailored to the user's input.
 - **FINAL_FOOD_ANALYSIS_V1**: This model handles the transition from image to text. We utilized OpenAI's vision model through the OpenAI API to detect and analyze images, as the Gemini model does not support tuning for image-related tasks.
 
 In scenarios where image detection fails or is unavailable, we've implemented a "fail-safe plan" that accepts direct text input, such as the food name, ensuring the system remains operational.
