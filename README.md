@@ -25,6 +25,34 @@ To run the demo app, follow these instructions:
 
 This will start the application, and you can interact with the AI models through the Streamlit interface.
 
+## The project Structure
+
+```bash
+├── __pycache__/
+├── .venv/
+├── SarrMal_demo/
+│   └── components/
+│       ├── __pycache__/
+│       ├── chat_bots.py
+│       ├── food_suggestions.py
+│       ├── image_detection.py
+│       ├── image_searchings.py
+│       ├── SarrMal.py
+│       ├── version_1.py
+│       ├── version_2.py
+│       └── version_3.py
+├── saves/
+│   ├── client_secret.json
+│   └── GoogleAuthentication.txt
+├── .env
+├── .gitignore
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── README.md
+└── requirements.txt
+```
+
 ## The AI Models
 
 The AI models integrated into this demo are hosted and managed via Google Cloud. Due to this, direct access to the models is restricted, and only authorized users can utilize them. The models are secured with Google OAuth, ensuring that only those with the necessary credentials can execute and interact with the AI.
