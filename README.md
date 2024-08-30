@@ -1,4 +1,4 @@
-# SarrMal Demo API (Stripped Down Version)
+# SarrMal Demo (Stripped Down Version)
 
 This repository contains a stripped-down version of the main functions from the SarrMal Demo API. It is designed for the demonstration of our tuned AI models.
 
