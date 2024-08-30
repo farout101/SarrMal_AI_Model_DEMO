@@ -155,11 +155,18 @@ if functionality_choice == "Generate Meal Plan":
     age = st.number_input("Age", min_value=1, max_value=120, value=25)
     gender = st.selectbox("Gender", ["Male", "Female", "Other"])
     exercise = st.selectbox("Exercise Level", ["None", "Light", "Moderate", "Intense"])
-    diseases = st.multiselect("List any diseases", ["None", "Diabetes", "Hypertension", "Celiac Disease", "Food Allergies"], default=["None"])
-    allergies = st.multiselect("List any allergies", ["None", "Peanuts", "Shellfish", "Eggs", "Milk"], default=["None"])
-    preferred_food = st.selectbox("Preferred Food", ["Burmese", "Thiland", "Chinese", "Western", "Japanese", "Korean", "Indian", "Other"])
-    food_type = st.selectbox("Food Type", ["Vegetarian", "Non-Vegetarian","Healthy","Gym-Rat","High-Calorie", "High-Fibre", "Low-Sugar", "High-Protein", "Balanced","Other"])
-
+    diseases = st.multiselect("List any diseases", ["None", "Diabetes", "Hypertension"], default=["None"])
+    allergies = st.multiselect("List any allergies", ["None", "Peanuts", "Shellfish", "Milk"], default=["None"])
+    preferred_food = st.selectbox("Preferred Food", ["Burmese", "Chinese", "Western", "Japanese", "Korean", "Indian", "Other"])
+    food_type = st.selectbox(
+        "Food Type",
+        [
+            "Vegetarian",
+            "Non-Vegetarian",
+            "Balanced",
+            "Other"
+        ]
+    )
     # Generate the prompt based on user input
     prompt = f"""{{
         "weight": {weight},

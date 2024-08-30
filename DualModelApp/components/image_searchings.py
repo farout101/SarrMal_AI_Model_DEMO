@@ -51,12 +51,12 @@ def fetch_google(search_query):
     search_engine_id = os.environ.get("SEARCH_ENGINE_ID")
 
     api_keys = [
-        os.environ.get("OAUTH_API_1"),
-        os.environ.get("OAUTH_API_2"),
-        os.environ.get("OAUTH_API_3"),
-        os.environ.get("OAUTH_API_4"),
+        os.environ.get("OAUTH_API_6"),
         os.environ.get("OAUTH_API_5"),
-        os.environ.get("OAUTH_API_6")
+        os.environ.get("OAUTH_API_4"),
+        os.environ.get("OAUTH_API_3"),
+        os.environ.get("OAUTH_API_2"),
+        os.environ.get("OAUTH_API_1")
     ]
 
     for api_key in api_keys:
