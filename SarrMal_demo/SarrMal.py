@@ -191,8 +191,19 @@ if functionality_choice == "Generate Meal Plan":
             "Other"
         ]
     )
-    # sugar_level = st.number_input("Sugar Level (mg/dL)", min_value=1, max_value=500, value=100)
+    sugar_level = st.number_input("Sugar Level (mg/dL)", min_value=1, max_value=500, value=100)
     # Generate the prompt based on user input
+    
+    if sugar_level < 70:
+        sugar_status = f"{food_type} (Increase sugar intake)"
+    elif 70 <= sugar_level <= 99:
+        sugar_status = f"{food_type} (Maintain normal sugar intake)"
+    elif 100 <= sugar_level <= 125:
+        sugar_status = f"{food_type} (Moderate sugar intake)"
+    else:
+        sugar_status = f"{food_type} (Low sugar option)"
+        
+    
     prompt = f"""{{
         "weight": {weight},
         "height": {height},
@@ -202,11 +213,11 @@ if functionality_choice == "Generate Meal Plan":
         "gender": "{gender}",
         "exercise": "{exercise}",
         "preferred": "{preferred_food}",
-        "food-type": "{food_type}"
+        "food-type": "{sugar_status}"
     }}"""
 
-    #For Model1 and Model2
-    
+
+    #For Model1 and Model2    
     # prompt = f"""{{
     #     "weight": {weight},
     #     "height": {height},
