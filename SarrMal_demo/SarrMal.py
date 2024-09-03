@@ -346,30 +346,10 @@ elif functionality_choice == "Search your own Food":
         food_name = st.text_input("Enter the name of the food item", "")
         if st.button("Search Food"):
             # Process the text input for food search
-            response = food_suggestions.suggestion_from_text(food_name)
+            response = food_suggestions.suggestion_from_image(food_name)
             
             if response:
-                st.markdown(f"**🍲 Food Name**: <span style='color:green'>{response.get('food_name')}</span>", unsafe_allow_html=True)
-                st.markdown(f"**📏 Portion Size**: <span style='color:blue'>{response.get('portion_size')}</span>", unsafe_allow_html=True)
-                st.markdown(f"**🔥 Calories Estimate**: <span style='color:red'>{response.get('calories_estimate')}</span>", unsafe_allow_html=True)
-                st.markdown(f"**🏷️ Categories**: <span style='color:purple'>{', '.join(response.get('categories', []))}</span>", unsafe_allow_html=True)
-                st.markdown(f"**🕒 Meal Time**: <span style='color:orange'>{', '.join(response.get('meal_time', []))}</span>", unsafe_allow_html=True)
-                st.markdown(f"**🌍 Cuisine**: <span style='color:brown'>{response.get('cuisine')}</span>", unsafe_allow_html=True)
-                st.markdown(f"**🛒 Ingredients**: <span style='color:darkblue'>{', '.join(response.get('ingredients', []))}</span>", unsafe_allow_html=True)
-                
-                st.write("**👨‍🍳 How to Cook:**")
-                for step in response.get('how_to_cook', []):
-                    st.markdown(f"- {step} 🍴", unsafe_allow_html=True)
-                    
-                st.write("**🍽️ Recommended Sides:**")
-                for side in response.get('recommended_sides', []):
-                    st.markdown(f"- **{side['side_name']}**: _{side['description']}_", unsafe_allow_html=True)
-                    
-                st.write("**🥤 Recommended Drinks:**")
-                for drink in response.get('recommended_drinks', []):
-                    st.markdown(f"- **{drink['drink_name']}**: _{drink['description']}_", unsafe_allow_html=True)
-                    
-                st.markdown(f"**📝 Notes**: <span style='color:gray'>{response.get('notes')}</span>", unsafe_allow_html=True)
+                st.markdown(f"{response}", unsafe_allow_html=True)
             else:
                 st.write("❌ This is not recognized as a food item.")
 
@@ -385,26 +365,6 @@ elif functionality_choice == "Search your own Food":
         response = food_suggestions.suggestion_from_image(food_name)
         
         if response:
-            st.markdown(f"**🍲 Food Name**: <span style='color:green'>{response.get('food_name')}</span>", unsafe_allow_html=True)
-            st.markdown(f"**📏 Portion Size**: <span style='color:blue'>{response.get('portion_size')}</span>", unsafe_allow_html=True)
-            st.markdown(f"**🔥 Calories Estimate**: <span style='color:red'>{response.get('calories_estimate')}</span>", unsafe_allow_html=True)
-            st.markdown(f"**🏷️ Categories**: <span style='color:purple'>{', '.join(response.get('categories', []))}</span>", unsafe_allow_html=True)
-            st.markdown(f"**🕒 Meal Time**: <span style='color:orange'>{', '.join(response.get('meal_time', []))}</span>", unsafe_allow_html=True)
-            st.markdown(f"**🌍 Cuisine**: <span style='color:brown'>{response.get('cuisine')}</span>", unsafe_allow_html=True)
-            st.markdown(f"**🛒 Ingredients**: <span style='color:darkblue'>{', '.join(response.get('ingredients', []))}</span>", unsafe_allow_html=True)
-            
-            st.write("**👨‍🍳 How to Cook:**")
-            for step in response.get('how_to_cook', []):
-                st.markdown(f"- {step} 🍴", unsafe_allow_html=True)
-                
-            st.write("**🍽️ Recommended Sides:**")
-            for side in response.get('recommended_sides', []):
-                st.markdown(f"- **{side['side_name']}**: _{side['description']}_", unsafe_allow_html=True)
-                
-            st.write("**🥤 Recommended Drinks:**")
-            for drink in response.get('recommended_drinks', []):
-                st.markdown(f"- **{drink['drink_name']}**: _{drink['description']}_", unsafe_allow_html=True)
-                
-            st.markdown(f"**📝 Notes**: <span style='color:gray'>{response.get('notes')}</span>", unsafe_allow_html=True)
+            st.markdown(f"**🍲 Food Name**: <span style='color:green'>{response}</span>", unsafe_allow_html=True)
         else:
             st.write("❌ This is not recognized as a food item.")

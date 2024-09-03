@@ -148,7 +148,7 @@ def suggestion_from_image(prompt):
     try:
         model = genai.GenerativeModel(model_name='tunedModels/final-food-analysis-v1-kva230h5vrbk')
         result = model.generate_content(prompt)
-        response = json.loads(result.text)
+        response = result.text
         return response
     except json.JSONDecodeError as json_err:
         st.error("😥 There was an error processing the response. Please try again later.")
@@ -161,6 +161,8 @@ def suggestion_from_image(prompt):
         return None
 
 #For testing the models    
+  
+# print(suggestion_from_image("Egg fried Rice")) 
     
 # print(generate_gemini("""{
 #                 "weight": 80,
