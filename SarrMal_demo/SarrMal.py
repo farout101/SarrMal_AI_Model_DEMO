@@ -299,84 +299,112 @@ elif functionality_choice == "Chat about Food and Nutrition":
     if st.button("Clear Chat"):
         st.session_state.chat_history = []
         
-# Old Placeholder Function
-elif functionality_choice == "Search your own Food":
-    st.write("Search for any food item!")
-    st.write("Image detection : OpenAI (GPT-4) is Active.(Fixed for this functionality)!")
-    st.write("Food suggestion : SarrMal (Tuning) is Active.(Fixed for this functionality)!")
-    
-    # Option for user to upload an image or use the camera
-    upload_option = st.radio("Choose image source:", ("Upload from device", "Use camera", "Use Text(If the image is not available)"))
-    
-    if upload_option == "Upload from device":
-        uploaded_image = st.file_uploader("Upload an image of the food item", type=["jpg", "jpeg", "png"])
-    elif upload_option == "Use camera":
-        uploaded_image = st.camera_input("Take a picture of the food item")
-    else:
-        uploaded_image = None
-        food_name = st.text_input("Enter the name of the food item", "")
-    
-    if uploaded_image is not None:
-        # Display the uploaded image
-        st.image(uploaded_image, caption='Uploaded Image.', use_column_width=True)
-        
-        # Encode and send the image to OpenAI API
-        base64_image = image_detection.encode_image(uploaded_image)
-        food_name = image_detection.get_food_name(base64_image)
-        
-        # Display the result
-        if food_name:
-            st.write(f"The name of the food is: **{food_name}**")
-        else:
-            st.write("This is not recognized as a food item.")
-            
+# # Old Placeholder Function
 # elif functionality_choice == "Search your own Food":
-#     st.write("🍽️ **Search for any food item!**")
-#     st.write("🚀 Only SarrMal (Tuning) model is available for this functionality.")
+#     st.write("Search for any food item!")
+#     st.write("Image detection : OpenAI (GPT-4) is Active.(Fixed for this functionality)!")
+#     st.write("Food suggestion : SarrMal (Tuning) is Active.(Fixed for this functionality)!")
     
 #     # Option for user to upload an image or use the camera
-#     upload_option = st.radio("📸 Choose image source:", ("Upload from device", "Use camera"))
+#     upload_option = st.radio("Choose image source:", ("Upload from device", "Use camera", "Use Text(If the image is not available)"))
     
 #     if upload_option == "Upload from device":
-#         uploaded_image = st.file_uploader("🖼️ Upload an image of the food item", type=["jpg", "jpeg", "png"])
+#         uploaded_image = st.file_uploader("Upload an image of the food item", type=["jpg", "jpeg", "png"])
 #     elif upload_option == "Use camera":
-#         uploaded_image = st.camera_input("📷 Take a picture of the food item")
+#         uploaded_image = st.camera_input("Take a picture of the food item")
 #     else:
 #         uploaded_image = None
 #         food_name = st.text_input("Enter the name of the food item", "")
     
 #     if uploaded_image is not None:
 #         # Display the uploaded image
-#         st.image(uploaded_image, caption='📷 **Uploaded Image**', use_column_width=True)
+#         st.image(uploaded_image, caption='Uploaded Image.', use_column_width=True)
         
-#         # Encode and send the image to the AI model
+#         # Encode and send the image to OpenAI API
 #         base64_image = image_detection.encode_image(uploaded_image)
 #         food_name = image_detection.get_food_name(base64_image)
         
-#         # Get the response from the SarrMal Food Suggestion Model
-#         response = food_suggestions.suggestion_from_image(food_name)
-        
-#         if response:
-#             st.markdown(f"**🍲 Food Name**: <span style='color:green'>{response.get('food_name')}</span>", unsafe_allow_html=True)
-#             st.markdown(f"**📏 Portion Size**: <span style='color:blue'>{response.get('portion_size')}</span>", unsafe_allow_html=True)
-#             st.markdown(f"**🔥 Calories Estimate**: <span style='color:red'>{response.get('calories_estimate')}</span>", unsafe_allow_html=True)
-#             st.markdown(f"**🏷️ Categories**: <span style='color:purple'>{', '.join(response.get('categories', []))}</span>", unsafe_allow_html=True)
-#             st.markdown(f"**🕒 Meal Time**: <span style='color:orange'>{', '.join(response.get('meal_time', []))}</span>", unsafe_allow_html=True)
-#             st.markdown(f"**🌍 Cuisine**: <span style='color:brown'>{response.get('cuisine')}</span>", unsafe_allow_html=True)
-#             st.markdown(f"**🛒 Ingredients**: <span style='color:darkblue'>{', '.join(response.get('ingredients', []))}</span>", unsafe_allow_html=True)
-            
-#             st.write("**👨‍🍳 How to Cook:**")
-#             for step in response.get('how_to_cook', []):
-#                 st.markdown(f"- {step} 🍴", unsafe_allow_html=True)
-                
-#             st.write("**🍽️ Recommended Sides:**")
-#             for side in response.get('recommended_sides', []):
-#                 st.markdown(f"- **{side['side_name']}**: _{side['description']}_", unsafe_allow_html=True)
-                
-#             st.write("**🥤 Recommended Drinks:**")
-#             for drink in response.get('recommended_drinks', []):
-#                 st.markdown(f"- **{drink['drink_name']}**: _{drink['description']}_", unsafe_allow_html=True)
-                
-#             st.markdown(f"**📝 Notes**: <span style='color:gray'>{response.get('notes')}</span>", unsafe_allow_html=True)
+#         # Display the result
+#         if food_name:
+#             st.write(f"The name of the food is: **{food_name}**")
 #         else:
-#             st.write("❌ This is not recognized as a food item.")
+#             st.write("This is not recognized as a food item.")
+            
+elif functionality_choice == "Search your own Food":
+    st.write("🍽️ **Search for any food item!**")
+    st.write("🚀 Only SarrMal (Tuning) model is available for this functionality.")
+    
+    # Option for user to upload an image, use the camera, or input text
+    upload_option = st.radio("📸 Choose image source:", ("Upload from device", "Use camera", "Use Text (If the image is not available)"))
+    
+    if upload_option == "Upload from device":
+        uploaded_image = st.file_uploader("🖼️ Upload an image of the food item", type=["jpg", "jpeg", "png"])
+    elif upload_option == "Use camera":
+        uploaded_image = st.camera_input("📷 Take a picture of the food item")
+    else:
+        uploaded_image = None
+        food_name = st.text_input("Enter the name of the food item", "")
+        if st.button("Search Food"):
+            # Process the text input for food search
+            response = food_suggestions.suggestion_from_text(food_name)
+            
+            if response:
+                st.markdown(f"**🍲 Food Name**: <span style='color:green'>{response.get('food_name')}</span>", unsafe_allow_html=True)
+                st.markdown(f"**📏 Portion Size**: <span style='color:blue'>{response.get('portion_size')}</span>", unsafe_allow_html=True)
+                st.markdown(f"**🔥 Calories Estimate**: <span style='color:red'>{response.get('calories_estimate')}</span>", unsafe_allow_html=True)
+                st.markdown(f"**🏷️ Categories**: <span style='color:purple'>{', '.join(response.get('categories', []))}</span>", unsafe_allow_html=True)
+                st.markdown(f"**🕒 Meal Time**: <span style='color:orange'>{', '.join(response.get('meal_time', []))}</span>", unsafe_allow_html=True)
+                st.markdown(f"**🌍 Cuisine**: <span style='color:brown'>{response.get('cuisine')}</span>", unsafe_allow_html=True)
+                st.markdown(f"**🛒 Ingredients**: <span style='color:darkblue'>{', '.join(response.get('ingredients', []))}</span>", unsafe_allow_html=True)
+                
+                st.write("**👨‍🍳 How to Cook:**")
+                for step in response.get('how_to_cook', []):
+                    st.markdown(f"- {step} 🍴", unsafe_allow_html=True)
+                    
+                st.write("**🍽️ Recommended Sides:**")
+                for side in response.get('recommended_sides', []):
+                    st.markdown(f"- **{side['side_name']}**: _{side['description']}_", unsafe_allow_html=True)
+                    
+                st.write("**🥤 Recommended Drinks:**")
+                for drink in response.get('recommended_drinks', []):
+                    st.markdown(f"- **{drink['drink_name']}**: _{drink['description']}_", unsafe_allow_html=True)
+                    
+                st.markdown(f"**📝 Notes**: <span style='color:gray'>{response.get('notes')}</span>", unsafe_allow_html=True)
+            else:
+                st.write("❌ This is not recognized as a food item.")
+
+    if uploaded_image is not None:
+        # Display the uploaded image
+        st.image(uploaded_image, caption='📷 **Uploaded Image**', use_column_width=True)
+        
+        # Encode and send the image to the AI model
+        base64_image = image_detection.encode_image(uploaded_image)
+        food_name = image_detection.get_food_name(base64_image)
+        
+        # Get the response from the SarrMal Food Suggestion Model
+        response = food_suggestions.suggestion_from_image(food_name)
+        
+        if response:
+            st.markdown(f"**🍲 Food Name**: <span style='color:green'>{response.get('food_name')}</span>", unsafe_allow_html=True)
+            st.markdown(f"**📏 Portion Size**: <span style='color:blue'>{response.get('portion_size')}</span>", unsafe_allow_html=True)
+            st.markdown(f"**🔥 Calories Estimate**: <span style='color:red'>{response.get('calories_estimate')}</span>", unsafe_allow_html=True)
+            st.markdown(f"**🏷️ Categories**: <span style='color:purple'>{', '.join(response.get('categories', []))}</span>", unsafe_allow_html=True)
+            st.markdown(f"**🕒 Meal Time**: <span style='color:orange'>{', '.join(response.get('meal_time', []))}</span>", unsafe_allow_html=True)
+            st.markdown(f"**🌍 Cuisine**: <span style='color:brown'>{response.get('cuisine')}</span>", unsafe_allow_html=True)
+            st.markdown(f"**🛒 Ingredients**: <span style='color:darkblue'>{', '.join(response.get('ingredients', []))}</span>", unsafe_allow_html=True)
+            
+            st.write("**👨‍🍳 How to Cook:**")
+            for step in response.get('how_to_cook', []):
+                st.markdown(f"- {step} 🍴", unsafe_allow_html=True)
+                
+            st.write("**🍽️ Recommended Sides:**")
+            for side in response.get('recommended_sides', []):
+                st.markdown(f"- **{side['side_name']}**: _{side['description']}_", unsafe_allow_html=True)
+                
+            st.write("**🥤 Recommended Drinks:**")
+            for drink in response.get('recommended_drinks', []):
+                st.markdown(f"- **{drink['drink_name']}**: _{drink['description']}_", unsafe_allow_html=True)
+                
+            st.markdown(f"**📝 Notes**: <span style='color:gray'>{response.get('notes')}</span>", unsafe_allow_html=True)
+        else:
+            st.write("❌ This is not recognized as a food item.")
